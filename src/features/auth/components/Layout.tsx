@@ -1,3 +1,5 @@
+import React from 'react';
+import logo from '../../../assets/logo.svg';
 import {
   Box,
   Container,
@@ -6,9 +8,6 @@ import {
   Paper,
   Typography,
 } from '../../../components/Elements';
-import { Head } from '../../../components/head';
-import React from 'react';
-import logo from '../../../assets/logo.svg';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -18,7 +17,8 @@ type LayoutProps = {
 export const Layout = ({ children, title }: LayoutProps) => {
   return (
     <>
-      <Head title={title} />
+      {/* TODO: fix error when Head is uncommented */}
+      {/* <Head title={title} /> */}
       <CssBaseline />
       <Container component="main" maxWidth="xs">
         <Paper
