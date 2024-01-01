@@ -1,4 +1,3 @@
-import logo from '@/assets/logo.svg';
 import {
   Box,
   Container,
@@ -6,9 +5,10 @@ import {
   Link,
   Paper,
   Typography,
-} from '@/components/Elements';
-import { Head } from '@/components/head';
+} from '../../../components/Elements';
+import { Head } from '../../../components/head';
 import React from 'react';
+import logo from '../../../assets/logo.svg';
 
 type LayoutProps = {
   children: React.ReactNode;
