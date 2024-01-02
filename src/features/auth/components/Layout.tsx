@@ -7,6 +7,7 @@ import {
   Paper,
   Typography,
 } from '@/components/Elements';
+import { Head } from '@/components/head';
 import React from 'react';
 
 type LayoutProps = {
@@ -18,7 +19,7 @@ export const Layout = ({ children, title }: LayoutProps) => {
   return (
     <>
       {/* TODO: fix error when Head is uncommented */}
-      {/* <Head title={title} /> */}
+      <Head title={title} />
       <CssBaseline />
       <Container component="main" maxWidth="xs">
         <Paper
