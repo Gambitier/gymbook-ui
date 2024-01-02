@@ -3,7 +3,6 @@ import { Button, TextField } from '@mui/material';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { LoginCredentialsDTO } from '../api/login';
 
 const schema = yup.object().shape({
   email: yup.string().email('Invalid email').required('Email is required'),
@@ -12,6 +11,16 @@ const schema = yup.object().shape({
     .required('Password is required')
     .min(6, 'Password should have at least 6 characters'),
 });
+
+/*
+ * LoginValues type represents form data (so we dont need to export it to other modules)
+ * and LoginCredentialsDto represent api request type
+ * sometimes these two might be same but they represent different things
+*/
+type LoginValues = {
+  email: string;
+  password: string;
+};
 
 type LoginFormProps = {
   onSuccess: () => void;
@@ -22,11 +31,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginCredentialsDTO>({
+  } = useForm<LoginValues>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<LoginCredentialsDTO> = (data: LoginCredentialsDTO) => {
+  const onSubmit: SubmitHandler<LoginValues> = (data: LoginValues) => {
     console.log(data);
     onSuccess();
   };
