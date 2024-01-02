@@ -14,10 +14,10 @@ const schema = yup.object().shape({
 });
 
 type LoginFormProps = {
-  onSubmit: SubmitHandler<LoginCredentialsDTO>;
+  onSuccess: () => void;
 };
 
-const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
+const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
   const {
     register,
     handleSubmit,
@@ -25,6 +25,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
   } = useForm<LoginCredentialsDTO>({
     resolver: yupResolver(schema),
   });
+
+  const onSubmit: SubmitHandler<LoginCredentialsDTO> = () => {
+    onSuccess();
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

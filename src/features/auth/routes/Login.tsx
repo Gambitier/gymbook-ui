@@ -8,7 +8,7 @@ export const Login = () => {
 
   return (
     <Layout title="Log in to your account">
-      <LoginForm onSubmit={() => navigate('/app')} />
+      <LoginForm onSuccess={() => navigate('/app')} />
     </Layout>
   );
 };
