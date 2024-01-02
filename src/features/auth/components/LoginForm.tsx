@@ -4,7 +4,7 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
-const schema = yup.object().shape({
+const schema: yup.ObjectSchema<LoginValues> = yup.object().shape({
   email: yup.string().email('Invalid email').required('Email is required'),
   password: yup
     .string()
@@ -16,7 +16,7 @@ const schema = yup.object().shape({
  * LoginValues type represents form data (so we dont need to export it to other modules)
  * and LoginCredentialsDto represent api request type
  * sometimes these two might be same but they represent different things
-*/
+ */
 type LoginValues = {
   email: string;
   password: string;
