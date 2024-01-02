@@ -6,6 +6,7 @@ import {
   loginWithEmailAndPassword,
   registerWithEmailAndPassword,
 } from '@/features/auth';
+import { configureAuth } from '@/lib/react-query-auth';
 import storage from '@/utils/storage';
 
 async function handleUserResponse(data: UserResponse) {
@@ -39,9 +40,10 @@ async function logoutFn() {
   window.location.assign(window.location.origin as unknown as string);
 }
 
-export const authConfig = {
-  loadUser,
-  loginFn,
-  registerFn,
-  logoutFn,
-};
+export const { useUser, useLogin, useRegister, useLogout } = configureAuth({
+  userFn: () => loadUser(),
+  loginFn: (data) => loginFn(data as LoginCredentialsDTO),
+  registerFn: (data) =>
+    registerFn(data as RegisterCredentialsDTO),
+  logoutFn: () => logoutFn(),
+});

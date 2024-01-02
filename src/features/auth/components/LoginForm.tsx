@@ -1,3 +1,4 @@
+import { useLogin } from '@/lib/auth';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, TextField } from '@mui/material';
 import React from 'react';
@@ -27,6 +28,8 @@ type LoginFormProps = {
 };
 
 const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
+  const { mutateAsync } = useLogin();
+
   const {
     register,
     handleSubmit,
@@ -35,8 +38,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<LoginValues> = (data: LoginValues) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<LoginValues> = async (data: LoginValues) => {
+    await mutateAsync(data);
     onSuccess();
   };
 
