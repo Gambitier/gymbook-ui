@@ -26,7 +26,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<LoginCredentialsDTO> = () => {
+  const onSubmit: SubmitHandler<LoginCredentialsDTO> = (data: LoginCredentialsDTO) => {
+    console.log(data);
     onSuccess();
   };
 
