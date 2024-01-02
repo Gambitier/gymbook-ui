@@ -1,5 +1,4 @@
-import React from 'react';
-import logo from '../../../assets/logo.svg';
+import logo from '@/assets/logo.svg';
 import {
   Box,
   Container,
@@ -7,7 +6,8 @@ import {
   Link,
   Paper,
   Typography,
-} from '../../../components/Elements';
+} from '@/components/Elements';
+import React from 'react';
 
 type LayoutProps = {
   children: React.ReactNode;
