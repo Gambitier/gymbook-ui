@@ -15,7 +15,7 @@ const schema: yup.ObjectSchema<LoginValues> = yup.object().shape({
 
 /*
  * LoginValues type represents form data (so we dont need to export it to other modules)
- * and LoginCredentialsDto represent api request type
+ * and api/LoginRequestDTO represent api request type
  * sometimes these two might be same but they represent different things
  */
 type LoginValues = {

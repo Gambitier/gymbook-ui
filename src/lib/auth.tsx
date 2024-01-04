@@ -11,8 +11,7 @@ import storage from '@/utils/storage';
 
 async function handleUserResponse(data: LoginResponseDTO) {
   const { token, user } = data.data.entity;
-  // const jwt = token.accessToken;
-  const {accessToken : jwt}=token
+  const { accessToken: jwt } = token;
   storage.setToken(jwt);
   return user;
 }
