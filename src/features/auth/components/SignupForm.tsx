@@ -7,6 +7,7 @@ import * as yup from 'yup';
 
 const schema = (yup.ObjectSchema<SignupValues> = yup.object().shape({
   firstName: yup.string().required('First Name is required'),
+  middleName: yup.string().required('Middle Name is required'),
   lastName: yup.string().required('Last Name is required'),
   email: yup.string().email('Invalid email').required('Email is required'),
   phone: yup.string().required('Phone is required'),
@@ -54,6 +55,15 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
       </div>
       <div>
         <TextField
+          label="Middle Name"
+          variant="outlined"
+          {...register('middleName')}
+          error={!!errors.middleName}
+          helperText={errors.middleName ? errors.middleName.message : ''}
+        />
+      </div>
+      <div>
+        <TextField
           label="Last Name"
           variant="outlined"
           {...register('lastName')}
@@ -83,7 +93,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
         <TextField
           label="Date of Birth"
           variant="outlined"
-          type='date'
+          type="date"
           {...register('dateOfBirth')}
           error={!!errors.dateOfBirth}
           helperText={errors.dateOfBirth ? errors.dateOfBirth.message : ''}

@@ -3,14 +3,19 @@ import { axios } from '@/lib/axios';
 
 // TODO: fix props in this type
 export type SignUpRequestDTO = {
-  email: string;
-  password: string;
+  prefix: string;
   firstName: string;
   lastName: string;
+  email: string;
+  phone: string;
+  gender: string;
+  password: string;
+  dateOfBirth: string;
+  middleName: string;
 };
 
 export const registerWithEmailAndPassword = (
   data: SignUpRequestDTO,
 ): Promise<LoginResponseDTO> => {
-  return axios.post('/auth/register', data); // TODO: fix endpoint
+  return axios.post('/auth/signup', data); // TODO: fix endpoint
 };
