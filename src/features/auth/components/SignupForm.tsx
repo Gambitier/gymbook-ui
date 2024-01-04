@@ -1,21 +1,28 @@
 import { useRegister } from '@/lib/auth';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, TextField } from '@mui/material';
+import { Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { UserPrefix } from './../types/login';
 
-const schema = (yup.ObjectSchema<SignupValues> = yup.object().shape({
+const schema: yup.ObjectSchema<SignupValues> = yup.object().shape({
   firstName: yup.string().required('First Name is required'),
   middleName: yup.string().required('Middle Name is required'),
   lastName: yup.string().required('Last Name is required'),
   email: yup.string().email('Invalid email').required('Email is required'),
   phone: yup.string().required('Phone is required'),
-  password: yup.string().required('Password is required'),
-}));
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(6, 'Password should have at least 6 characters'),
+  prefix: yup
+  .string()
+  .oneOf(Object.values(UserPrefix), 'Invalid prefix'),
+});
 
 type SignupValues = {
-  prefix: string;
+  prefix: UserPrefix;
   firstName: string;
   lastName: string;
   email: string;
@@ -44,6 +51,25 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <div>
+      <div>
+  <FormControl variant="standard" fullWidth>
+    <InputLabel id="demo-simple-select-label">Prefix</InputLabel>
+    <Select
+      labelId="demo-simple-select-label"
+      id="demo-simple-select"
+      label="Prefix"
+      {...register('prefix')}
+    >
+      <MenuItem value={UserPrefix.MR}>MR</MenuItem>
+      <MenuItem value={UserPrefix.MRS}>MRS</MenuItem>
+      <MenuItem value={UserPrefix.MISS}>MISS</MenuItem>
+    </Select>
+    {errors.prefix && (
+      <FormHelperText>{errors.prefix.message}</FormHelperText>
+    )}
+  </FormControl>
+</div>
       <div>
         <TextField
           label="First Name"
