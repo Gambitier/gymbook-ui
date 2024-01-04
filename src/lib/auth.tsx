@@ -10,7 +10,8 @@ import { configureAuth } from '@/lib/react-query-auth';
 import storage from '@/utils/storage';
 
 async function handleUserResponse(data: LoginResponseDTO) {
-  const { jwt, user } = data;
+  const { token, user } = data.data.entity;
+  const { accessToken: jwt } = token;
   storage.setToken(jwt);
   return user;
 }
