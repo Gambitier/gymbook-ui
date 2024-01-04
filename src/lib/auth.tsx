@@ -1,7 +1,7 @@
 import {
-  LoginCredentialsDTO,
-  RegisterCredentialsDTO,
-  UserResponse,
+  LoginRequestDTO,
+  LoginResponseDTO,
+  SignUpRequestDTO,
   getUser,
   loginWithEmailAndPassword,
   registerWithEmailAndPassword,
@@ -9,7 +9,7 @@ import {
 import { configureAuth } from '@/lib/react-query-auth';
 import storage from '@/utils/storage';
 
-async function handleUserResponse(data: UserResponse) {
+async function handleUserResponse(data: LoginResponseDTO) {
   const { jwt, user } = data;
   storage.setToken(jwt);
   return user;
@@ -23,13 +23,13 @@ async function loadUser() {
   return null;
 }
 
-async function loginFn(data: LoginCredentialsDTO) {
+async function loginFn(data: LoginRequestDTO) {
   const response = await loginWithEmailAndPassword(data);
   const user = await handleUserResponse(response);
   return user;
 }
 
-async function registerFn(data: RegisterCredentialsDTO) {
+async function registerFn(data: SignUpRequestDTO) {
   const response = await registerWithEmailAndPassword(data);
   const user = await handleUserResponse(response);
   return user;
@@ -42,8 +42,7 @@ async function logoutFn() {
 
 export const { useUser, useLogin, useRegister, useLogout } = configureAuth({
   userFn: () => loadUser(),
-  loginFn: (data) => loginFn(data as LoginCredentialsDTO),
-  registerFn: (data) =>
-    registerFn(data as RegisterCredentialsDTO),
+  loginFn: (data) => loginFn(data as LoginRequestDTO),
+  registerFn: (data) => registerFn(data as SignUpRequestDTO),
   logoutFn: () => logoutFn(),
 });

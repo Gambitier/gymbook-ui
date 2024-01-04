@@ -1,13 +1,13 @@
+import { LoginResponseDTO } from '@/features/auth';
 import { axios } from '@/lib/axios';
-import { UserResponse } from '../types';
 
-export type LoginCredentialsDTO = {
+export type LoginRequestDTO = {
   email: string;
   password: string;
 };
 
 export const loginWithEmailAndPassword = (
-  data: LoginCredentialsDTO,
-): Promise<UserResponse> => {
+  data: LoginRequestDTO,
+): Promise<LoginResponseDTO> => {
   return axios.post('/v1/auth/login', data);
 };

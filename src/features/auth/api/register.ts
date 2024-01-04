@@ -1,9 +1,8 @@
+import { LoginResponseDTO } from '@/features/auth';
 import { axios } from '@/lib/axios';
 
-import { UserResponse } from '../types';
-
 // TODO: fix props in this type
-export type RegisterCredentialsDTO = {
+export type SignUpRequestDTO = {
   email: string;
   password: string;
   firstName: string;
@@ -11,7 +10,7 @@ export type RegisterCredentialsDTO = {
 };
 
 export const registerWithEmailAndPassword = (
-  data: RegisterCredentialsDTO,
-): Promise<UserResponse> => {
+  data: SignUpRequestDTO,
+): Promise<LoginResponseDTO> => {
   return axios.post('/auth/register', data); // TODO: fix endpoint
 };
