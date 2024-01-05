@@ -1,7 +1,7 @@
 import { Button, TextField, Typography } from '@/components/Elements';
 import { SelectField } from '@/components/Form';
 import { useRegister } from '@/lib/auth';
-import { getEnumKeys } from '@/utils/enum';
+import { getObjectKeys } from '@/utils/object';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -9,11 +9,18 @@ import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 import { GenderEnum, UserPrefix } from '../types/user';
 
-enum UserPrefixDisplayValueEnum {
-  'Mr.' = UserPrefix.MR,
-  'Mrs.' = UserPrefix.MRS,
-  'Miss.' = UserPrefix.MISS,
-}
+const UserPrefixDisplayValue = {
+  'Mr.': UserPrefix.MR,
+  'Mrs.': UserPrefix.MRS,
+  'Miss.': UserPrefix.MISS,
+};
+
+const DisplayGender = {
+  Male: GenderEnum.MALE,
+  Female: GenderEnum.FEMALE,
+  Other: GenderEnum.OTHER,
+  Unspecified: GenderEnum.UNSPECIFIED,
+};
 
 const schema: yup.ObjectSchema<SignupValues> = yup.object().shape({
   firstName: yup.string().required('First Name is required'),
@@ -27,31 +34,22 @@ const schema: yup.ObjectSchema<SignupValues> = yup.object().shape({
     .min(6, 'Password should have at least 6 characters'),
   prefix: yup
     .string()
-    .oneOf([UserPrefix.MR, UserPrefix.MRS, UserPrefix.MISS] as const)
+    .oneOf(Object.values(UserPrefix))
     .required('Prefix is required'),
   dateOfBirth: yup.string().required('Date of Birth is required'),
   gender: yup
     .string()
-    .oneOf([
-      GenderEnum.MALE,
-      GenderEnum.FEMALE,
-      GenderEnum.OTHER,
-      GenderEnum.UNSPECIFIED,
-    ] as const)
+    .oneOf(Object.values(GenderEnum))
     .required('Gender is required'),
 });
 
 type SignupValues = {
-  prefix: UserPrefix.MR | UserPrefix.MRS | UserPrefix.MISS;
+  prefix: UserPrefix;
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
-  gender:
-    | GenderEnum.MALE
-    | GenderEnum.FEMALE
-    | GenderEnum.OTHER
-    | GenderEnum.UNSPECIFIED;
+  gender: GenderEnum;
   password: string;
   dateOfBirth: string;
   middleName: string;
@@ -76,8 +74,8 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
     onSuccess();
   };
 
-  const prefixKeys = getEnumKeys(UserPrefixDisplayValueEnum);
-  console.log(prefixKeys);
+  const prefixDisplayValues = getObjectKeys(UserPrefixDisplayValue);
+  const genderDisplayValues = getObjectKeys(DisplayGender);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
@@ -85,9 +83,22 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
           label="Prefix"
           error={errors.prefix}
           registration={register('prefix')}
-          options={prefixKeys.map((key) => ({
-            label: key,
-            value: UserPrefixDisplayValueEnum[key],
+          defaultValue={UserPrefix.MR}
+          options={prefixDisplayValues.map((displayValue) => ({
+            label: displayValue,
+            value: UserPrefixDisplayValue[displayValue],
+          }))}
+        />
+      </div>
+      <div>
+        <SelectField
+          label="Gender"
+          error={errors.gender}
+          registration={register('gender')}
+          defaultValue={GenderEnum.UNSPECIFIED}
+          options={genderDisplayValues.map((displayValue) => ({
+            label: displayValue,
+            value: DisplayGender[displayValue],
           }))}
         />
       </div>
@@ -125,6 +136,15 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
           {...register('email')}
           error={!!errors.email}
           helperText={errors.email ? errors.email.message : ''}
+        />
+      </div>
+      <div>
+        <TextField
+          label="Password"
+          variant="outlined"
+          {...register('password')}
+          error={!!errors.password}
+          helperText={errors.password ? errors.password.message : ''}
         />
       </div>
       <div>
