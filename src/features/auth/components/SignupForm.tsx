@@ -7,19 +7,7 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import * as yup from 'yup';
-
-enum GenderEnum {
-  MALE = 'MALE',
-  FEMALE = 'FEMALE',
-  OTHER = 'OTHER',
-  UNSPECIFIED = 'UNSPECIFIED',
-}
-
-enum UserPrefix {
-  MR = 'MR',
-  MRS = 'MRS',
-  MISS = 'MISS',
-}
+import { GenderEnum, UserPrefix } from '../types/user';
 
 enum UserPrefixDisplayValueEnum {
   'Mr.' = UserPrefix.MR,
