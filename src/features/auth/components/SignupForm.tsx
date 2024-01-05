@@ -3,7 +3,15 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@/components/Elements';
+import {
+  Button,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from '@/components/Elements';
 
 enum GenderEnum {
   MALE = 'MALE',
@@ -30,19 +38,17 @@ const schema: yup.ObjectSchema<SignupValues> = yup.object().shape({
     .min(6, 'Password should have at least 6 characters'),
   prefix: yup
     .string()
-    .oneOf([UserPrefix.MR, UserPrefix.MRS, UserPrefix.MISS], 'Invalid prefix'),
+    .oneOf([UserPrefix.MR, UserPrefix.MRS, UserPrefix.MISS] as const)
+    .required('Prefix is required'),
   dateOfBirth: yup.string().required('Date of Birth is required'),
   gender: yup
     .string()
-    .oneOf(
-      [
-        GenderEnum.MALE,
-        GenderEnum.FEMALE,
-        GenderEnum.OTHER,
-        GenderEnum.UNSPECIFIED,
-      ],
-      'Invalid gender',
-    )
+    .oneOf([
+      GenderEnum.MALE,
+      GenderEnum.FEMALE,
+      GenderEnum.OTHER,
+      GenderEnum.UNSPECIFIED,
+    ] as const)
     .required('Gender is required'),
 });
 
@@ -65,7 +71,7 @@ type SignupFormProps = {
   onSuccess: () => void;
 };
 const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
-  const { mutateAsync } = useRegister;
+  const { mutateAsync } = useRegister();
   const {
     register,
     handleSubmit,
