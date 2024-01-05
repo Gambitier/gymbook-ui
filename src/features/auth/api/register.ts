@@ -1,14 +1,13 @@
-import { LoginResponseDTO } from '@/features/auth';
+import { GenderEnum, LoginResponseDTO, UserPrefix } from '@/features/auth';
 import { axios } from '@/lib/axios';
 
-// TODO: fix props in this type
 export type SignUpRequestDTO = {
-  prefix: string;
+  prefix: UserPrefix;
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
-  gender: string;
+  gender: GenderEnum;
   password: string;
   dateOfBirth: string;
   middleName: string;
