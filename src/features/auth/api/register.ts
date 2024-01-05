@@ -17,5 +17,5 @@ export type SignUpRequestDTO = {
 export const registerWithEmailAndPassword = (
   data: SignUpRequestDTO,
 ): Promise<LoginResponseDTO> => {
-  return axios.post('/auth/signup', data); // TODO: fix endpoint
+  return axios.post('/v1/auth/signup', data); // TODO: fix endpoint
 };
