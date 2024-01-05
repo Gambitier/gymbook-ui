@@ -1,4 +1,5 @@
 import { useRegister } from '@/lib/auth';
+import { getEnumKeys } from '@/utils/enum';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
   Button,
@@ -26,6 +27,12 @@ enum UserPrefix {
   MISS = 'MISS',
 }
 
+enum UserPrefixDisplayValueEnum {
+  'Mr.' = UserPrefix.MR,
+  'Mrs.' = UserPrefix.MRS,
+  'Miss.' = UserPrefix.MISS,
+}
+
 const schema: yup.ObjectSchema<SignupValues> = yup.object().shape({
   firstName: yup.string().required('First Name is required'),
   middleName: yup.string().required('Middle Name is required'),
@@ -38,7 +45,7 @@ const schema: yup.ObjectSchema<SignupValues> = yup.object().shape({
     .min(6, 'Password should have at least 6 characters'),
   prefix: yup
     .string()
-    .oneOf([UserPrefix.MR, UserPrefix.MRS, UserPrefix.MISS], 'Invalid prefix'),
+    .oneOf(Object.values(UserPrefixDisplayValueEnum), 'Invalid prefix'),
   dateOfBirth: yup.string().required('Date of Birth is required'),
   gender: yup
     .string()
@@ -55,7 +62,7 @@ const schema: yup.ObjectSchema<SignupValues> = yup.object().shape({
 });
 
 type SignupValues = {
-  prefix: UserPrefix.MR | UserPrefix.MRS | UserPrefix.MISS;
+  prefix: UserPrefixDisplayValueEnum;
   firstName: string;
   lastName: string;
   email: string;
@@ -69,9 +76,11 @@ type SignupValues = {
   dateOfBirth: string;
   middleName: string;
 };
+
 type SignupFormProps = {
   onSuccess: () => void;
 };
+
 const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
   const { mutateAsync } = useRegister;
   const {
@@ -86,6 +95,9 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
     await mutateAsync(data);
     onSuccess();
   };
+
+  const prefixKeys = getEnumKeys(UserPrefixDisplayValueEnum);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
@@ -97,9 +109,13 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
             label="Prefix"
             {...register('prefix')}
           >
-            <MenuItem value={UserPrefix.MR}>MR</MenuItem>
-            <MenuItem value={UserPrefix.MRS}>MRS</MenuItem>
-            <MenuItem value={UserPrefix.MISS}>MISS</MenuItem>
+            {prefixKeys.map((key) => {
+              return (
+                <MenuItem key={key} value={UserPrefixDisplayValueEnum[key]}>
+                  {key}
+                </MenuItem>
+              );
+            })}
           </Select>
           {errors.prefix && (
             <FormHelperText>{errors.prefix.message}</FormHelperText>
