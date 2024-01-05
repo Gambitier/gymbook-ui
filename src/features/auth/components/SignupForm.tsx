@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 import { GenderEnum, UserPrefix } from '../types/user';
 
-type UserPrefixDisplayValueKeyType = keyof typeof UserPrefixDisplayValue;
 const UserPrefixDisplayValue = {
   'Mr.': UserPrefix.MR,
   'Mrs.': UserPrefix.MRS,
@@ -28,9 +27,7 @@ const schema: yup.ObjectSchema<SignupValues> = yup.object().shape({
     .min(6, 'Password should have at least 6 characters'),
   prefix: yup
     .string()
-    .oneOf(
-      Object.keys(UserPrefixDisplayValue) as UserPrefixDisplayValueKeyType[],
-    )
+    .oneOf(Object.values(UserPrefix))
     .required('Prefix is required'),
   dateOfBirth: yup.string().required('Date of Birth is required'),
   gender: yup
@@ -45,7 +42,7 @@ const schema: yup.ObjectSchema<SignupValues> = yup.object().shape({
 });
 
 type SignupValues = {
-  prefix: UserPrefixDisplayValueKeyType;
+  prefix: UserPrefix;
   firstName: string;
   lastName: string;
   email: string;
