@@ -15,6 +15,13 @@ const UserPrefixDisplayValue = {
   'Miss.': UserPrefix.MISS,
 };
 
+const DisplayGender = {
+  Male: GenderEnum.MALE,
+  Female: GenderEnum.FEMALE,
+  Other: GenderEnum.OTHER,
+  Unspecified: GenderEnum.UNSPECIFIED,
+};
+
 const schema: yup.ObjectSchema<SignupValues> = yup.object().shape({
   firstName: yup.string().required('First Name is required'),
   middleName: yup.string().required('Middle Name is required'),
@@ -32,12 +39,7 @@ const schema: yup.ObjectSchema<SignupValues> = yup.object().shape({
   dateOfBirth: yup.string().required('Date of Birth is required'),
   gender: yup
     .string()
-    .oneOf([
-      GenderEnum.MALE,
-      GenderEnum.FEMALE,
-      GenderEnum.OTHER,
-      GenderEnum.UNSPECIFIED,
-    ] as const)
+    .oneOf(Object.values(GenderEnum))
     .required('Gender is required'),
 });
 
@@ -73,6 +75,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
   };
 
   const prefixDisplayValues = getObjectKeys(UserPrefixDisplayValue);
+  const genderDisplayValues = getObjectKeys(DisplayGender);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
@@ -84,6 +87,18 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
           options={prefixDisplayValues.map((displayValue) => ({
             label: displayValue,
             value: UserPrefixDisplayValue[displayValue],
+          }))}
+        />
+      </div>
+      <div>
+        <SelectField
+          label="Gender"
+          error={errors.gender}
+          registration={register('gender')}
+          defaultValue={GenderEnum.UNSPECIFIED}
+          options={genderDisplayValues.map((displayValue) => ({
+            label: displayValue,
+            value: DisplayGender[displayValue],
           }))}
         />
       </div>
@@ -121,6 +136,15 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
           {...register('email')}
           error={!!errors.email}
           helperText={errors.email ? errors.email.message : ''}
+        />
+      </div>
+      <div>
+        <TextField
+          label="Password"
+          variant="outlined"
+          {...register('password')}
+          error={!!errors.password}
+          helperText={errors.password ? errors.password.message : ''}
         />
       </div>
       <div>
