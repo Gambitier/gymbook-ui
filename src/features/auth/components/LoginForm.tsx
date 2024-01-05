@@ -71,7 +71,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
         Login
       </Button>
       <Typography component="p" sx={{ fontSize: '15px', mt: 3 }} variant="h6">
-        Create a new account? <Link to="signup">Sign up</Link>
+        Create a new account? <Link to="../signup">Sign up</Link>
       </Typography>
     </form>
   );

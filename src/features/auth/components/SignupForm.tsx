@@ -11,7 +11,9 @@ import {
   MenuItem,
   Select,
   TextField,
+  Typography,
 } from '@/components/Elements';
+import { Link } from 'react-router-dom';
 
 enum GenderEnum {
   MALE = 'MALE',
@@ -154,6 +156,9 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
           label="Date of Birth"
           variant="outlined"
           type="date"
+          InputLabelProps={{
+            shrink: true,
+          }}
           {...register('dateOfBirth')}
           error={!!errors.dateOfBirth}
           helperText={errors.dateOfBirth ? errors.dateOfBirth.message : ''}
@@ -162,6 +167,9 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
       <Button type="submit" variant="contained" color="primary">
         Signup
       </Button>
+      <Typography component="p" sx={{ fontSize: '15px', mt: 3 }} variant="h6">
+        Already have an account? <Link to="../login">Log In</Link>
+      </Typography>
     </form>
   );
 };

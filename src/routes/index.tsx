@@ -3,6 +3,7 @@ import { publicRoutes } from '@/routes/public';
 import { useRoutes } from 'react-router-dom';
 
 export const AppRoutes = () => {
+  
   const commonRoutes = [
     {
       path: '/',
