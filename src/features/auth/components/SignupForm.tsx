@@ -77,7 +77,6 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
   };
 
   const prefixKeys = getObjectKeys(UserPrefixDisplayValue);
-  console.log(prefixKeys);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
