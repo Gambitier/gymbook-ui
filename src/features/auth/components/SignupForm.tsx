@@ -1,17 +1,9 @@
 import { useRegister } from '@/lib/auth';
 import { yupResolver } from '@hookform/resolvers/yup';
-import {
-  Button,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-} from '@mui/material';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@/components/Elements';
 
 enum GenderEnum {
   MALE = 'MALE',
