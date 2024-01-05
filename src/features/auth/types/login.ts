@@ -1,6 +1,6 @@
 import { APIResponse } from '@/types/api';
 
-export type UserPrefix = 'MR' | 'MRS' | 'MISS';
+type UserPrefix = 'MR' | 'MRS' | 'MISS';
 type Role = 'USER' | 'SUPERADMIN' | 'ADMIN';
 
 type UserRole = {

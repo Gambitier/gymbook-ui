@@ -1,10 +1,30 @@
 import { useRegister } from '@/lib/auth';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import {
+  Button,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from '@mui/material';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { UserPrefix } from './../types/login';
+
+enum GenderEnum {
+  MALE = 'MALE',
+  FEMALE = 'FEMALE',
+  OTHER = 'OTHER',
+  UNSPECIFIED = 'UNSPECIFIED',
+}
+
+enum UserPrefix {
+  MR = 'MR',
+  MRS = 'MRS',
+  MISS = 'MISS',
+}
 
 const schema: yup.ObjectSchema<SignupValues> = yup.object().shape({
   firstName: yup.string().required('First Name is required'),
@@ -17,17 +37,34 @@ const schema: yup.ObjectSchema<SignupValues> = yup.object().shape({
     .required('Password is required')
     .min(6, 'Password should have at least 6 characters'),
   prefix: yup
-  .string()
-  .oneOf(Object.values(UserPrefix), 'Invalid prefix'),
+    .string()
+    .oneOf([UserPrefix.MR, UserPrefix.MRS, UserPrefix.MISS], 'Invalid prefix'),
+  dateOfBirth: yup.string().required('Date of Birth is required'),
+  gender: yup
+    .string()
+    .oneOf(
+      [
+        GenderEnum.MALE,
+        GenderEnum.FEMALE,
+        GenderEnum.OTHER,
+        GenderEnum.UNSPECIFIED,
+      ],
+      'Invalid gender',
+    )
+    .required('Gender is required'),
 });
 
 type SignupValues = {
-  prefix: UserPrefix;
+  prefix: UserPrefix.MR | UserPrefix.MRS | UserPrefix.MISS;
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
-  gender: string;
+  gender:
+    | GenderEnum.MALE
+    | GenderEnum.FEMALE
+    | GenderEnum.OTHER
+    | GenderEnum.UNSPECIFIED;
   password: string;
   dateOfBirth: string;
   middleName: string;
@@ -52,24 +89,23 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-      <div>
-  <FormControl variant="standard" fullWidth>
-    <InputLabel id="demo-simple-select-label">Prefix</InputLabel>
-    <Select
-      labelId="demo-simple-select-label"
-      id="demo-simple-select"
-      label="Prefix"
-      {...register('prefix')}
-    >
-      <MenuItem value={UserPrefix.MR}>MR</MenuItem>
-      <MenuItem value={UserPrefix.MRS}>MRS</MenuItem>
-      <MenuItem value={UserPrefix.MISS}>MISS</MenuItem>
-    </Select>
-    {errors.prefix && (
-      <FormHelperText>{errors.prefix.message}</FormHelperText>
-    )}
-  </FormControl>
-</div>
+        <FormControl variant="standard" fullWidth>
+          <InputLabel id="demo-simple-select-label">Prefix</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label="Prefix"
+            {...register('prefix')}
+          >
+            <MenuItem value={UserPrefix.MR}>MR</MenuItem>
+            <MenuItem value={UserPrefix.MRS}>MRS</MenuItem>
+            <MenuItem value={UserPrefix.MISS}>MISS</MenuItem>
+          </Select>
+          {errors.prefix && (
+            <FormHelperText>{errors.prefix.message}</FormHelperText>
+          )}
+        </FormControl>
+      </div>
       <div>
         <TextField
           label="First Name"
