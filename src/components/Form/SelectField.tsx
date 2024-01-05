@@ -38,6 +38,7 @@ export const SelectField = (props: SelectFieldProps) => {
         {...registration}
         className={clsx(className)}
         onChange={onChange}
+        fullWidth
       >
         {options.map(({ label, value }: Option) => (
           <MenuItem key={label?.toString()} value={value}>
