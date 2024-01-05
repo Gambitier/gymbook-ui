@@ -1,19 +1,12 @@
+import { Button, TextField, Typography } from '@/components/Elements';
+import { SelectField } from '@/components/Form';
 import { useRegister } from '@/lib/auth';
+import { getEnumKeys } from '@/utils/enum';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import {
-  Button,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from '@/components/Elements';
 import { Link } from 'react-router-dom';
+import * as yup from 'yup';
 
 enum GenderEnum {
   MALE = 'MALE',
@@ -26,6 +19,12 @@ enum UserPrefix {
   MR = 'MR',
   MRS = 'MRS',
   MISS = 'MISS',
+}
+
+enum UserPrefixDisplayValueEnum {
+  'Mr.' = UserPrefix.MR,
+  'Mrs.' = UserPrefix.MRS,
+  'Miss.' = UserPrefix.MISS,
 }
 
 const schema: yup.ObjectSchema<SignupValues> = yup.object().shape({
@@ -69,9 +68,11 @@ type SignupValues = {
   dateOfBirth: string;
   middleName: string;
 };
+
 type SignupFormProps = {
   onSuccess: () => void;
 };
+
 const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
   const { mutateAsync } = useRegister();
   const {
@@ -86,25 +87,21 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
     await mutateAsync(data);
     onSuccess();
   };
+
+  const prefixKeys = getEnumKeys(UserPrefixDisplayValueEnum);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <FormControl variant="standard" fullWidth>
-          <InputLabel id="demo-simple-select-label">Prefix</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            label="Prefix"
-            {...register('prefix')}
-          >
-            <MenuItem value={UserPrefix.MR}>MR</MenuItem>
-            <MenuItem value={UserPrefix.MRS}>MRS</MenuItem>
-            <MenuItem value={UserPrefix.MISS}>MISS</MenuItem>
-          </Select>
-          {errors.prefix && (
-            <FormHelperText>{errors.prefix.message}</FormHelperText>
-          )}
-        </FormControl>
+        <SelectField
+          label="Prefix"
+          error={errors.prefix}
+          registration={register('prefix')}
+          options={prefixKeys.map((key) => ({
+            label: key,
+            value: UserPrefixDisplayValueEnum[key],
+          }))}
+        />
       </div>
       <div>
         <TextField
