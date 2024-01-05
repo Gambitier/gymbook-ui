@@ -1,8 +1,9 @@
+import { Button, TextField, Typography } from '@/components/Elements';
 import { useLogin } from '@/lib/auth';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, TextField } from '@mui/material';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 
 const schema: yup.ObjectSchema<LoginValues> = yup.object().shape({
@@ -69,6 +70,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
       <Button type="submit" variant="contained" color="primary">
         Login
       </Button>
+      <Typography component="p" sx={{ fontSize: '15px', mt: 3 }} variant="h6">
+        Create a new account? <Link to="../signup">Sign up</Link>
+      </Typography>
     </form>
   );
 };
