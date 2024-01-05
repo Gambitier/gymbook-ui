@@ -47,11 +47,7 @@ type SignupValues = {
   lastName: string;
   email: string;
   phone: string;
-  gender:
-    | GenderEnum.MALE
-    | GenderEnum.FEMALE
-    | GenderEnum.OTHER
-    | GenderEnum.UNSPECIFIED;
+  gender: GenderEnum;
   password: string;
   dateOfBirth: string;
   middleName: string;
