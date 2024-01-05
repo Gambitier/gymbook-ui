@@ -1,4 +1,4 @@
-import { Button, TextField, Typography } from '@/components/Elements';
+import { Box, Button, TextField, Typography } from '@/components/Elements';
 import { SelectField } from '@/components/Form';
 import { useRegister } from '@/lib/auth';
 import { getObjectKeys } from '@/utils/object';
@@ -78,7 +78,14 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
   const genderDisplayValues = getObjectKeys(DisplayGender);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          maxWidth: '300px',
+          margin: 'auto',
+        }}
+      >
         <SelectField
           label="Prefix"
           error={errors.prefix}
@@ -89,8 +96,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
             value: UserPrefixDisplayValue[displayValue],
           }))}
         />
-      </div>
-      <div>
+
         <SelectField
           label="Gender"
           error={errors.gender}
@@ -101,62 +107,34 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
             value: DisplayGender[displayValue],
           }))}
         />
-      </div>
-      <div>
+
         <TextField
           label="First Name"
           variant="outlined"
           {...register('firstName')}
           error={!!errors.firstName}
           helperText={errors.firstName ? errors.firstName.message : ''}
+          sx={{ mb: 2, mt: 2 }}
         />
-      </div>
-      <div>
+
         <TextField
           label="Middle Name"
           variant="outlined"
           {...register('middleName')}
           error={!!errors.middleName}
           helperText={errors.middleName ? errors.middleName.message : ''}
+          sx={{ mb: 2 }}
         />
-      </div>
-      <div>
+
         <TextField
           label="Last Name"
           variant="outlined"
           {...register('lastName')}
           error={!!errors.lastName}
           helperText={errors.lastName ? errors.lastName.message : ''}
+          sx={{ mb: 2 }}
         />
-      </div>
-      <div>
-        <TextField
-          label="Email"
-          variant="outlined"
-          {...register('email')}
-          error={!!errors.email}
-          helperText={errors.email ? errors.email.message : ''}
-        />
-      </div>
-      <div>
-        <TextField
-          label="Password"
-          variant="outlined"
-          {...register('password')}
-          error={!!errors.password}
-          helperText={errors.password ? errors.password.message : ''}
-        />
-      </div>
-      <div>
-        <TextField
-          label="Phone"
-          variant="outlined"
-          {...register('phone')}
-          error={!!errors.phone}
-          helperText={errors.phone ? errors.phone.message : ''}
-        />
-      </div>
-      <div>
+
         <TextField
           label="Date of Birth"
           variant="outlined"
@@ -167,14 +145,49 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
           {...register('dateOfBirth')}
           error={!!errors.dateOfBirth}
           helperText={errors.dateOfBirth ? errors.dateOfBirth.message : ''}
+          sx={{ mb: 2 }}
         />
-      </div>
-      <Button type="submit" variant="contained" color="primary">
-        Signup
-      </Button>
-      <Typography component="p" sx={{ fontSize: '15px', mt: 3 }} variant="h6">
-        Already have an account? <Link to="../login">Log In</Link>
-      </Typography>
+
+        <TextField
+          label="Email"
+          variant="outlined"
+          {...register('email')}
+          error={!!errors.email}
+          helperText={errors.email ? errors.email.message : ''}
+          sx={{ mb: 2 }}
+        />
+
+        <TextField
+          label="Phone"
+          variant="outlined"
+          {...register('phone')}
+          error={!!errors.phone}
+          helperText={errors.phone ? errors.phone.message : ''}
+          sx={{ mb: 2 }}
+        />
+
+        <TextField
+          label="Password"
+          variant="outlined"
+          {...register('password')}
+          error={!!errors.password}
+          helperText={errors.password ? errors.password.message : ''}
+          sx={{ mb: 2 }}
+        />
+
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          sx={{ mb: 2 }}
+        >
+          Signup
+        </Button>
+
+        <Typography variant="body1">
+          Already have an account? <Link to="../login">Log In</Link>
+        </Typography>
+      </Box>
     </form>
   );
 };

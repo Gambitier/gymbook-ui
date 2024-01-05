@@ -1,4 +1,4 @@
-import { Button, TextField, Typography } from '@/components/Elements';
+import { Box, Button, TextField, Typography } from '@/components/Elements';
 import { useLogin } from '@/lib/auth';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
@@ -46,17 +46,23 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          maxWidth: '300px',
+          margin: 'auto',
+        }}
+      >
         <TextField
           label="Email"
           variant="outlined"
           {...register('email')}
           error={!!errors.email}
           helperText={errors.email ? errors.email.message : ''}
+          sx={{ mb: 2 }}
         />
-      </div>
 
-      <div>
         <TextField
           label="Password"
           type="password"
@@ -64,15 +70,22 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSuccess }) => {
           {...register('password')}
           error={!!errors.password}
           helperText={errors.password ? errors.password.message : ''}
+          sx={{ mb: 2 }}
         />
-      </div>
 
-      <Button type="submit" variant="contained" color="primary">
-        Login
-      </Button>
-      <Typography component="p" sx={{ fontSize: '15px', mt: 3 }} variant="h6">
-        Create a new account? <Link to="../signup">Sign up</Link>
-      </Typography>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          sx={{ mb: 2 }}
+        >
+          Login
+        </Button>
+
+        <Typography variant="body1">
+          Create a new account? <Link to="../signup">Sign up</Link>
+        </Typography>
+      </Box>
     </form>
   );
 };
