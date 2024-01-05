@@ -77,7 +77,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
   };
 
   const prefixKeys = getEnumKeys(UserPrefixDisplayValueEnum);
-
+  console.log(prefixKeys);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
