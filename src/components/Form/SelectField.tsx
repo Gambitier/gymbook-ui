@@ -1,4 +1,4 @@
-import { FormControl, MenuItem, Select } from '@mui/material';
+import { MenuItem, Select } from '@mui/material';
 import clsx from 'clsx';
 import * as React from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
@@ -30,20 +30,18 @@ export const SelectField = (props: SelectFieldProps) => {
 
   return (
     <FieldWrapper label={label} error={error}>
-      <FormControl fullWidth>
-        <Select
-          placeholder={placeholder}
-          defaultValue={defaultValue}
-          {...registration}
-          className={clsx(className)}
-        >
-          {options.map(({ label, value }: Option) => (
-            <MenuItem key={label?.toString()} value={value}>
-              {label}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <Select
+        placeholder={placeholder}
+        defaultValue={defaultValue}
+        {...registration}
+        className={clsx(className)}
+      >
+        {options.map(({ label, value }: Option) => (
+          <MenuItem key={label?.toString()} value={value}>
+            {label}
+          </MenuItem>
+        ))}
+      </Select>
     </FieldWrapper>
   );
 };

@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 import { GenderEnum, UserPrefix } from '../types/user';
 
+type UserPrefixDisplayValueKeyType = keyof typeof UserPrefixDisplayValue;
 const UserPrefixDisplayValue = {
   'Mr.': UserPrefix.MR,
   'Mrs.': UserPrefix.MRS,
@@ -27,7 +28,9 @@ const schema: yup.ObjectSchema<SignupValues> = yup.object().shape({
     .min(6, 'Password should have at least 6 characters'),
   prefix: yup
     .string()
-    .oneOf([UserPrefix.MR, UserPrefix.MRS, UserPrefix.MISS] as const)
+    .oneOf(
+      Object.keys(UserPrefixDisplayValue) as UserPrefixDisplayValueKeyType[],
+    )
     .required('Prefix is required'),
   dateOfBirth: yup.string().required('Date of Birth is required'),
   gender: yup
@@ -42,7 +45,7 @@ const schema: yup.ObjectSchema<SignupValues> = yup.object().shape({
 });
 
 type SignupValues = {
-  prefix: UserPrefix.MR | UserPrefix.MRS | UserPrefix.MISS;
+  prefix: UserPrefixDisplayValueKeyType;
   firstName: string;
   lastName: string;
   email: string;
@@ -76,7 +79,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
     onSuccess();
   };
 
-  const prefixKeys = getObjectKeys(UserPrefixDisplayValue);
+  const prefixDisplayValues = getObjectKeys(UserPrefixDisplayValue);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
@@ -84,9 +87,9 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
           label="Prefix"
           error={errors.prefix}
           registration={register('prefix')}
-          options={prefixKeys.map((key) => ({
-            label: key,
-            value: UserPrefixDisplayValue[key],
+          options={prefixDisplayValues.map((displayValue) => ({
+            label: displayValue,
+            value: UserPrefixDisplayValue[displayValue],
           }))}
         />
       </div>
