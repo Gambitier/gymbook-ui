@@ -87,6 +87,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
           label="Prefix"
           error={errors.prefix}
           registration={register('prefix')}
+          defaultValue={UserPrefix.MR}
           options={prefixDisplayValues.map((displayValue) => ({
             label: displayValue,
             value: UserPrefixDisplayValue[displayValue],
