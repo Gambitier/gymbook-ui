@@ -1,4 +1,4 @@
-import { MenuItem, Select } from '@mui/material';
+import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import clsx from 'clsx';
 import * as React from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
@@ -15,6 +15,7 @@ type SelectFieldProps = FieldWrapperPassThroughProps & {
   defaultValue?: string;
   placeholder?: string;
   registration: Partial<UseFormRegisterReturn>;
+  onChange?: (event: SelectChangeEvent, child: React.ReactNode) => void;
 };
 
 export const SelectField = (props: SelectFieldProps) => {
@@ -26,6 +27,7 @@ export const SelectField = (props: SelectFieldProps) => {
     defaultValue,
     registration,
     placeholder,
+    onChange,
   } = props;
 
   return (
@@ -35,6 +37,7 @@ export const SelectField = (props: SelectFieldProps) => {
         defaultValue={defaultValue}
         {...registration}
         className={clsx(className)}
+        onChange={onChange}
       >
         {options.map(({ label, value }: Option) => (
           <MenuItem key={label?.toString()} value={value}>
