@@ -1,7 +1,7 @@
 import { Button, TextField, Typography } from '@/components/Elements';
 import { SelectField } from '@/components/Form';
 import { useRegister } from '@/lib/auth';
-import { getEnumKeys } from '@/utils/enum';
+import { getObjectKeys } from '@/utils/object';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -9,11 +9,11 @@ import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 import { GenderEnum, UserPrefix } from '../types/user';
 
-enum UserPrefixDisplayValueEnum {
-  'Mr.' = UserPrefix.MR,
-  'Mrs.' = UserPrefix.MRS,
-  'Miss.' = UserPrefix.MISS,
-}
+const UserPrefixDisplayValue = {
+  'Mr.': UserPrefix.MR,
+  'Mrs.': UserPrefix.MRS,
+  'Miss.': UserPrefix.MISS,
+};
 
 const schema: yup.ObjectSchema<SignupValues> = yup.object().shape({
   firstName: yup.string().required('First Name is required'),
@@ -76,7 +76,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
     onSuccess();
   };
 
-  const prefixKeys = getEnumKeys(UserPrefixDisplayValueEnum);
+  const prefixKeys = getObjectKeys(UserPrefixDisplayValue);
   console.log(prefixKeys);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -87,7 +87,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ onSuccess }) => {
           registration={register('prefix')}
           options={prefixKeys.map((key) => ({
             label: key,
-            value: UserPrefixDisplayValueEnum[key],
+            value: UserPrefixDisplayValue[key],
           }))}
         />
       </div>
