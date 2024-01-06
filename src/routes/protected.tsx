@@ -6,6 +6,6 @@ export const protectedRoutes: RouteObject[] = [
   {
     path: '/app',
     element: <App />,
-    children: [{ path: '/app/plans', element: <PlansRoute /> }],
+    children: [{ path: '/app/plans/*', element: <PlansRoute /> }],
   },
 ];

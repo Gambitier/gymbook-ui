@@ -4,7 +4,7 @@ import Plans from './Plans';
 export const PlansRoute = () => {
   return (
     <Routes>
-      <Route path="/plan" element={<Plans />} />
+      <Route path="" element={<Plans />} />
     </Routes>
   );
 };
