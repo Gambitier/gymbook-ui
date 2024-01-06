@@ -1,5 +1,5 @@
-import { AuthRoutes } from "@/features/auth";
-import { RouteObject } from "react-router-dom";
+import { AuthRoutes } from '@/features/auth';
+import { RouteObject } from 'react-router-dom';
 
 export const publicRoutes: RouteObject[] = [
   {
