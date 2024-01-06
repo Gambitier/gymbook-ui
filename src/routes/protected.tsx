@@ -1,4 +1,4 @@
-import { PlansRoute } from '@/features/plan';
+import { PlansRoute } from '@/features/plans';
 import { RouteObject } from 'react-router-dom';
 import { App } from './App';
 
