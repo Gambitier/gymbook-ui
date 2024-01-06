@@ -1,9 +1,5 @@
-import MainLayout from '@/components/Layout/MainLayout';
 import { PlansRoute } from '@/features/Plans';
-
-const App = () => {
-  return <MainLayout />;
-};
+import { App } from './App';
 
 const protectedRoutes = [
   {
