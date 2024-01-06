@@ -9,7 +9,7 @@ const protectedRoutes = [
     path:'/app',
     element:<App/>,
     children:[
-        {path:'/plans', element: <PlansRoute/>  }
+        {path:'/app/plans', element: <PlansRoute/>  }
     ]
    }
 ]

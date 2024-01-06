@@ -1,9 +1,9 @@
 import { Landing } from '@/features/misc';
+import ProtectedRoutes from '@/routes/protected';
 import { publicRoutes } from '@/routes/public';
 import { useRoutes } from 'react-router-dom';
 
 export const AppRoutes = () => {
-  
   const commonRoutes = [
     {
       path: '/',
@@ -11,7 +11,11 @@ export const AppRoutes = () => {
     },
   ];
 
-  const element = useRoutes([...publicRoutes, ...commonRoutes]);
+  const element = useRoutes([
+    ...publicRoutes,
+    ...ProtectedRoutes,
+    ...commonRoutes,
+  ]);
 
   return <>{element}</>;
 };
