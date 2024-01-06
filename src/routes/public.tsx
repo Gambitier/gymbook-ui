@@ -1,6 +1,4 @@
-// TODO: why this is not allowed?
-// import { AuthRoutes } from '@/features/auth/routes';
-import { AuthRoutes } from '../features/auth/routes';
+import { AuthRoutes } from "@/features/auth";
 
 export const publicRoutes = [
   {
