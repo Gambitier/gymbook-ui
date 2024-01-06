@@ -1,5 +1,6 @@
 import MainLayout from '@/components/Layout/MainLayout';
-import PlansRoute from '@/features/Plans/routes';
+import { PlansRoute } from '@/features/Plans';
+
 const App = () => {
   return <MainLayout />;
 };

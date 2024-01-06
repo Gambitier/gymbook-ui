@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import Plans from './Plans';
 
-const PlansRoute = () => {
+export const PlansRoute = () => {
   return (
     <Routes>
       <Route path="/plan" element={<Plans />} />
@@ -9,4 +9,4 @@ const PlansRoute = () => {
   );
 };
 
-export default PlansRoute;
+ 
