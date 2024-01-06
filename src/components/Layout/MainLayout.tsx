@@ -1,9 +1,20 @@
-import React from 'react'
+import { NavLink } from 'react-router-dom';
 
+type SideNavigationItem = {
+  name: string;
+  to: string;
+};
 const MainLayout = () => {
+  const navigation: SideNavigationItem[] = [{name: 'Plan', to: './plan' }];
   return (
-    <div>MainLayout</div>
-  )
-}
+    <div>
+      {navigation.map((item, index) => (
+        <NavLink end={index === 0} key={item.name} to={item.to}>
+            <item.name/>
+        </NavLink>
+      ))}
+    </div>
+  );
+};
 
-export default MainLayout
+export default MainLayout;
