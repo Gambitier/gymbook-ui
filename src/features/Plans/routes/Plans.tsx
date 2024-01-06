@@ -3,10 +3,12 @@ import Plan from '../Components/Plan';
 
 const Plans = () => {
   return (
-    <ContentLayout title='Plans'>
-        <Plan/>
+    <ContentLayout title="Plans">
+      <div className="plan_container">
+        <Plan />
+      </div>
     </ContentLayout>
-  )
-}
+  );
+};
 
-export default Plans
+export default Plans;
