@@ -1,5 +1,5 @@
 import ContentLayout from '@/components/Layout/ContentLayout';
-import Plan from '../../Components/Plan';
+import Plan from '../Components/Plan';
 
 const Plans = () => {
   return (
