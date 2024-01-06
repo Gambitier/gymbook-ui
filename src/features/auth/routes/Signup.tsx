@@ -7,7 +7,7 @@ const Signup = () => {
 
   return (
     <Layout title="Sign up to your account">
-      <SignupForm onSuccess={() => navigate('/app')} />
+      <SignupForm onSuccess={() => navigate('/app/plans')} />
     </Layout>
   );
 };

@@ -1,11 +1,9 @@
-// TODO: why this is not allowed?
-// import { AuthRoutes } from '@/features/auth/routes';
-import { AuthRoutes } from '../features/auth/routes';
+import { AuthRoutes } from '@/features/auth';
+import { RouteObject } from 'react-router-dom';
 
-export const publicRoutes = [
+export const publicRoutes: RouteObject[] = [
   {
     path: '/auth/*',
     element: <AuthRoutes />,
   },
-  
 ];
