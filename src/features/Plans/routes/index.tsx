@@ -4,9 +4,9 @@ import Plans from './Plans';
 const PlansRoute = () => {
   return (
     <Routes>
-      <Route path='/plan' element={<Plans/>} />
+      <Route path="/plan" element={<Plans />} />
     </Routes>
-  )
-}
+  );
+};
 
-export default PlansRoute
+export default PlansRoute;

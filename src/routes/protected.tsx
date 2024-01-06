@@ -5,13 +5,11 @@ const App = () => {
 };
 
 const protectedRoutes = [
-   {
-    path:'/app',
-    element:<App/>,
-    children:[
-        {path:'/app/plans', element: <PlansRoute/>  }
-    ]
-   }
-]
+  {
+    path: '/app',
+    element: <App />,
+    children: [{ path: '/app/plans', element: <PlansRoute /> }],
+  },
+];
 
 export default protectedRoutes;

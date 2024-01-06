@@ -47,4 +47,3 @@ export const { useUser, useLogin, useRegister, useLogout } = configureAuth({
   registerFn: (data) => registerFn(data as SignUpRequestDTO),
   logoutFn: () => logoutFn(),
 });
-
