@@ -1,7 +1,7 @@
 import { Landing } from '@/features/misc';
-import ProtectedRoutes from '@/routes/protected';
 import { publicRoutes } from '@/routes/public';
 import { useRoutes } from 'react-router-dom';
+import { protectedRoutes } from './protected';
 
 export const AppRoutes = () => {
   const commonRoutes = [
@@ -13,7 +13,7 @@ export const AppRoutes = () => {
 
   const element = useRoutes([
     ...publicRoutes,
-    ...ProtectedRoutes,
+    ...protectedRoutes,
     ...commonRoutes,
   ]);
 

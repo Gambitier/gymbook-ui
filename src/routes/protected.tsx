@@ -1,16 +1,11 @@
-import MainLayout from '@/components/Layout/MainLayout';
-import { PlansRoute } from '@/features/Plans';
+import { PlansRoute } from '@/features/plans';
+import { RouteObject } from 'react-router-dom';
+import { App } from './App';
 
-const App = () => {
-  return <MainLayout />;
-};
-
-const protectedRoutes = [
+export const protectedRoutes: RouteObject[] = [
   {
     path: '/app',
     element: <App />,
-    children: [{ path: '/app/plans', element: <PlansRoute /> }],
+    children: [{ path: '/app/plans/*', element: <PlansRoute /> }],
   },
 ];
-
-export default protectedRoutes;
