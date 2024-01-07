@@ -5,7 +5,7 @@ type SideNavigationItem = {
   to: string;
 };
 const SidebarNavigation = () => {
-  const navigation:SideNavigationItem[] = [{ name: 'Plan', to: 'plans' }]
+  const navigation: SideNavigationItem[] = [{ name: 'Plan', to: 'plans' }];
   return (
     <>
       {navigation.map((item, index) => (
