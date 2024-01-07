@@ -1,3 +1,4 @@
+import { ChevronLeft, ChevronRight, Logout, Menu } from '@mui/icons-material';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,29 +17,29 @@ const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
-  transition: theme.transitions.create("width", {
+  transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
   }),
-  overflowX: "hidden",
+  overflowX: 'hidden',
 });
 
 const closedMixin = (theme: Theme): CSSObject => ({
-  transition: theme.transitions.create("width", {
+  transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  overflowX: "hidden",
+  overflowX: 'hidden',
   width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up("sm")]: {
+  [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
   },
 });
 
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-end",
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
   padding: theme.spacing(0, 1),
   ...theme.mixins.toolbar,
 }));
@@ -48,17 +49,17 @@ interface AppBarProps extends MuiAppBarProps {
 }
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
+  shouldForwardProp: (prop) => prop !== 'open',
 })<AppBarProps>(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(["width", "margin"], {
+  transition: theme.transitions.create(['width', 'margin'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
+    transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -66,19 +67,19 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 const MiniDrawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
+  shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
   width: drawerWidth,
   flexShrink: 0,
-  whiteSpace: "nowrap",
-  boxSizing: "border-box",
+  whiteSpace: 'nowrap',
+  boxSizing: 'border-box',
   ...(open && {
     ...openedMixin(theme),
-    "& .MuiDrawer-paper": openedMixin(theme),
+    '& .MuiDrawer-paper': openedMixin(theme),
   }),
   ...(!open && {
     ...closedMixin(theme),
-    "& .MuiDrawer-paper": closedMixin(theme),
+    '& .MuiDrawer-paper': closedMixin(theme),
   }),
 }));
 
@@ -115,7 +116,7 @@ export default function Drawer() {
               color: 'darkgray',
             }}
           >
-            <MenuIcon />
+            <Menu />
           </IconButton>
           <Typography
             variant="h6"
@@ -123,7 +124,7 @@ export default function Drawer() {
             noWrap
             component="div"
           >
-            Members
+            Gymbook
           </Typography>
           <Button
             variant="outlined"
@@ -138,18 +139,11 @@ export default function Drawer() {
       <MiniDrawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
+            {theme.direction === 'rtl' ? <ChevronRight /> : <ChevronLeft />}
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List sx={{ backgroundColor: 'lightgray' }}>
-          {MainListItems}
-          
-        </List>
+        <List sx={{ backgroundColor: 'lightgray' }}>{MainListItems}</List>
       </MiniDrawer>
     </Box>
   );

@@ -1,3 +1,4 @@
+import Drawer from '../Elements/Drawer/Drawer';
 import { Sidebar } from './Sidebar';
 
 type MainLayoutProps = {
@@ -7,8 +8,10 @@ type MainLayoutProps = {
 const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div>
-      <Sidebar />
-      <main>{children}</main>
+      <Drawer>
+        <Sidebar />
+        <main>{children}</main>
+      </Drawer>
     </div>
   );
 };

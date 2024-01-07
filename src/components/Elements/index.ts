@@ -11,3 +11,4 @@ export * from './InputLabel';
 export * from './Select';
 export * from './MenuItem';
 export * from './FormHelperText';
+export * from './Drawer';
