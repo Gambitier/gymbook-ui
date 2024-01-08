@@ -1,17 +1,26 @@
-import { ChevronLeft, ChevronRight, Logout, Menu } from '@mui/icons-material';
+import {
+  ChevronLeft,
+  ChevronRight,
+  Logout,
+  Menu
+} from '@mui/icons-material';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import MuiDrawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { CSSObject, Theme, styled, useTheme } from '@mui/material/styles';
 import * as React from 'react';
+import { NavLink } from 'react-router-dom';
 import { Button } from '../Button';
-import { MainListItems } from './Itemlist';
+
+type SideNavigationItem = {
+  name: string;
+  to: string;
+};
 
 const drawerWidth = 240;
 
@@ -85,6 +94,7 @@ const MiniDrawer = styled(MuiDrawer, {
 
 export default function Drawer() {
   const theme = useTheme();
+  const navigation: SideNavigationItem[] = [{ name: 'Plan', to: 'plans' }];
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -143,7 +153,13 @@ export default function Drawer() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List sx={{ backgroundColor: 'lightgray' }}>{MainListItems}</List>
+        {navigation.map((item, index) => (
+          <Button>
+            <NavLink end={index === 0} key={item.name} to={item.to}>
+              {item.name}
+            </NavLink>
+          </Button>
+        ))}
       </MiniDrawer>
     </Box>
   );
