@@ -1,6 +1,6 @@
 import { Box, Button, TextField, Typography } from '@/components/Elements';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Grid, Modal } from '@mui/material';
+import { Grid, Modal, Stack } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -20,7 +20,7 @@ const style = {
 const schema: yup.ObjectSchema<PlanValues> = yup.object().shape({
   name: yup.string().required('Name is required'),
   price: yup.number().required('Price is required'),
-  durationInMoths: yup.string().required('Duration in Months is required'),
+  durationInMoths: yup.number().required('Duration in Months is required'),
 });
 
 type PlanValues = {
@@ -34,17 +34,27 @@ const Plan: React.FC<PlanValues> = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const form = useForm<PlanValues>({
+    defaultValues: {
+      name: '',
+      price: 0,
+      durationInMoths: 0,
+    },
+    resolver: yupResolver(schema),
+  });
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<PlanValues>({
-    resolver: yupResolver(schema),
-  });
+    reset,
+  } = form;
 
   const onSubmit = (data: PlanValues) => {
     console.log(data);
+    reset();
   };
+
   return (
     <div>
       <Grid container>
@@ -68,56 +78,55 @@ const Plan: React.FC<PlanValues> = () => {
       >
         <Box sx={style}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Typography
-              id="modal-modal-title"
-              variant="h5"
-              component="h2"
-              sx={{ mb: 2 }}
-            >
-              Add Plan
-            </Typography>
-            <TextField
-              label="Plan Name"
-              variant="outlined"
-              fullWidth
-              {...register('name')}
-              error={!!errors.name}
-              helperText={errors.name ? errors.name.message : ''}
-              sx={{ mb: 2 }}
-            />
+            <Stack spacing={2}>
+              <Typography
+                id="modal-modal-title"
+                variant="h5"
+                component="h2"
+                sx={{ mb: 2 }}
+              >
+                Add Plan
+              </Typography>
+              <TextField
+                label="Plan Name"
+                variant="outlined"
+                {...register('name')}
+                error={!!errors.name}
+                helperText={errors.name ? errors.name.message : ''}
+                sx={{ mb: 2 }}
+              />
 
-            <TextField
-              label="Price"
-              type="price"
-              variant="outlined"
-              fullWidth
-              {...register('price')}
-              error={!!errors.price}
-              helperText={errors.price ? errors.price.message : ''}
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              label="Duration in Months"
-              type="durationInMoths"
-              variant="outlined"
-              fullWidth
-              {...register('durationInMoths')}
-              error={!!errors.durationInMoths}
-              helperText={
-                errors.durationInMoths ? errors.durationInMoths.message : ''
-              }
-              sx={{ mb: 2 }}
-            />
+              <TextField
+                label="Price"
+                type="number"
+                variant="outlined"
+                {...register('price')}
+                error={!!errors.price}
+                helperText={errors.price ? errors.price.message : ''}
+                sx={{ mb: 2 }}
+              />
 
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              fullWidth
-              sx={{ mb: 2 }}
-            >
-              Submit
-            </Button>
+              <TextField
+                label="Duration in Months"
+                type="number"
+                variant="outlined"
+                {...register('durationInMoths')}
+                error={!!errors.durationInMoths}
+                helperText={
+                  errors.durationInMoths ? errors.durationInMoths.message : ''
+                }
+                sx={{ mb: 2 }}
+              />
+
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                sx={{ mb: 2 }}
+              >
+                Submit
+              </Button>
+            </Stack>
           </form>
         </Box>
       </Modal>
