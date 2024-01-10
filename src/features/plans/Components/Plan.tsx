@@ -35,7 +35,6 @@ const Plan: React.FC<PlanValues> = () => {
   const handleClose = () => setOpen(false);
   const [cards, setCards] = useState<PlanValues[]>([]);
 
-  
   const form = useForm<PlanValues>({
     defaultValues: {
       name: '',
@@ -44,20 +43,21 @@ const Plan: React.FC<PlanValues> = () => {
     },
     resolver: yupResolver(schema),
   });
-  
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = form;
-  
+
   const onSubmit = (data: PlanValues) => {
     console.log(data);
     setCards((prevCards) => [...prevCards, data]);
     reset();
+    setOpen(false);
   };
-  
+
   return (
     <div>
       <Grid container>
@@ -135,22 +135,25 @@ const Plan: React.FC<PlanValues> = () => {
       </Modal>
 
       {/* card */}
-
-        {cards.map((card, index) => (
-          <Card key={index} sx={{ mb: 2 }}>
-            <CardContent>
-              <Typography variant="h5" component="div">
-                {card.name}
-              </Typography>
-              <Typography color="textSecondary" gutterBottom>
-                Price: {card.price}
-              </Typography>
-              <Typography color="textSecondary" gutterBottom>
-                Duration: {card.durationInMoths} months
-              </Typography>
-            </CardContent>
-          </Card>
-        ))}
+      <Box sx={{ ml: 30, mr: 10 }}>
+        <Grid container>
+          {cards.map((card, index) => (
+            <Card key={index} sx={{ m: 2, height: '150px', width: '270px' }}>
+              <CardContent>
+                <Typography variant="h5" component="div">
+                  {card.name}
+                </Typography>
+                <Typography color="textSecondary" gutterBottom>
+                  Price: {card.price}
+                </Typography>
+                <Typography color="textSecondary" gutterBottom>
+                  Duration: {card.durationInMoths} months
+                </Typography>
+              </CardContent>
+            </Card>
+          ))}
+        </Grid>
+      </Box>
     </div>
   );
 };
