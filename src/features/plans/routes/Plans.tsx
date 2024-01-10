@@ -5,7 +5,7 @@ const Plans = () => {
   return (
     <ContentLayout title="Plans">
       <div className="plan_container">
-        <Plan name={''} price={0} durationInMoths={0}/>
+        <Plan />
       </div>
     </ContentLayout>
   );

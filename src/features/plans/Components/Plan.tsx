@@ -1,59 +1,15 @@
-import { Box, Button, TextField, Typography } from '@/components/Elements';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Grid, Modal, Stack } from '@mui/material';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
+import React, { useState } from 'react';
+import { Button, Grid, Typography } from '@mui/material';
+import PlanModal, { PlanValues } from './PlanModal';
 
-const style = {
-  position: 'absolute' as const,
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+const Plan: React.FC = () => {
+  const [isModalOpen, setModalOpen] = useState(false);
 
-const schema: yup.ObjectSchema<PlanValues> = yup.object().shape({
-  name: yup.string().required('Name is required'),
-  price: yup.number().required('Price is required'),
-  durationInMoths: yup.number().required('Duration in Months is required'),
-});
+  const handleOpen = () => setModalOpen(true);
+  const handleClose = () => setModalOpen(false);
 
-type PlanValues = {
-  name: string;
-  price: number;
-  durationInMoths: number;
-};
-
-const Plan: React.FC<PlanValues> = () => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  const form = useForm<PlanValues>({
-    defaultValues: {
-      name: '',
-      price: 0,
-      durationInMoths: 0,
-    },
-    resolver: yupResolver(schema),
-  });
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = form;
-
-  const onSubmit = (data: PlanValues) => {
-    console.log(data);
-    reset();
-    setOpen(false);
+  const handleFormSubmit = (data: PlanValues) => {
+    console.log('Form submitted:', data);
   };
 
   return (
@@ -71,66 +27,11 @@ const Plan: React.FC<PlanValues> = () => {
         </Grid>
       </Grid>
 
-      <Modal
-        open={open}
+      <PlanModal
+        open={isModalOpen}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Stack spacing={2}>
-              <Typography
-                id="modal-modal-title"
-                variant="h5"
-                component="h2"
-                sx={{ mb: 2 }}
-              >
-                Add Plan
-              </Typography>
-              <TextField
-                label="Plan Name"
-                variant="outlined"
-                {...register('name')}
-                error={!!errors.name}
-                helperText={errors.name ? errors.name.message : ''}
-                sx={{ mb: 2 }}
-              />
-
-              <TextField
-                label="Price"
-                type="number"
-                variant="outlined"
-                {...register('price')}
-                error={!!errors.price}
-                helperText={errors.price ? errors.price.message : ''}
-                sx={{ mb: 2 }}
-              />
-
-              <TextField
-                label="Duration in Months"
-                type="number"
-                variant="outlined"
-                {...register('durationInMoths')}
-                error={!!errors.durationInMoths}
-                helperText={
-                  errors.durationInMoths ? errors.durationInMoths.message : ''
-                }
-                sx={{ mb: 2 }}
-              />
-
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                sx={{ mb: 2 }}
-              >
-                Submit
-              </Button>
-            </Stack>
-          </form>
-        </Box>
-      </Modal>
+        onSubmit={handleFormSubmit}
+      />
     </div>
   );
 };
