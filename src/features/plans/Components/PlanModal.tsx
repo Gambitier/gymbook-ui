@@ -25,14 +25,14 @@ const style = {
 
 const schema: yup.ObjectSchema<PlanValues> = yup.object().shape({
   name: yup.string().required('Name is required'),
-  price: yup.number().required('Price is required'),
-  durationInMonths: yup.number().required('Duration in Months is required'),
+  price: yup.string().required('Price is required'),
+  durationInMonths: yup.string().required('Duration in Months is required'),
 });
 
 export type PlanValues = {
   name: string;
-  price: number;
-  durationInMonths: number;
+  price: string;
+  durationInMonths: string;
 };
 
 interface PlanModalProps {
@@ -45,21 +45,17 @@ const PlanModal: React.FC<PlanModalProps> = ({ open, onClose, onSubmit }) => {
   const form = useForm<PlanValues>({
     defaultValues: {
       name: '',
-      price: 0,
-      durationInMonths: 0,
+      price: '',
+      durationInMonths: '',
     },
     resolver: yupResolver(schema),
   });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = form;
+  const { register, handleSubmit, reset, formState } = form;
+  const { errors, isDirty, isValid } = formState;
 
   const handleFormSubmit = (data: PlanValues) => {
-    console.log(data);
+    // console.log(data);
     reset();
     onSubmit(data);
     onClose();
@@ -94,7 +90,6 @@ const PlanModal: React.FC<PlanModalProps> = ({ open, onClose, onSubmit }) => {
 
             <TextField
               label="Price"
-              type="number"
               variant="outlined"
               {...register('price')}
               error={!!errors.price}
@@ -104,7 +99,6 @@ const PlanModal: React.FC<PlanModalProps> = ({ open, onClose, onSubmit }) => {
 
             <TextField
               label="Duration in Months"
-              type="number"
               variant="outlined"
               {...register('durationInMonths')}
               error={!!errors.durationInMonths}
@@ -119,6 +113,7 @@ const PlanModal: React.FC<PlanModalProps> = ({ open, onClose, onSubmit }) => {
               variant="contained"
               color="primary"
               sx={{ mb: 2 }}
+              disabled={!isDirty || !isValid}
             >
               Submit
             </Button>
