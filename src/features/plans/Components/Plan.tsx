@@ -131,8 +131,6 @@ const Plan: React.FC<PlanValues> = () => {
           </form>
         </Box>
       </Modal>
-
-      
     </div>
   );
 };
