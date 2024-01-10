@@ -1,6 +1,6 @@
 import { Box, Button, TextField, Typography } from '@/components/Elements';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Card, CardContent, Grid, Modal, Stack } from '@mui/material';
+import { Grid, Modal, Stack } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -33,7 +33,6 @@ const Plan: React.FC<PlanValues> = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [cards, setCards] = useState<PlanValues[]>([]);
 
   const form = useForm<PlanValues>({
     defaultValues: {
@@ -53,7 +52,6 @@ const Plan: React.FC<PlanValues> = () => {
 
   const onSubmit = (data: PlanValues) => {
     console.log(data);
-    setCards((prevCards) => [...prevCards, data]);
     reset();
     setOpen(false);
   };
@@ -134,26 +132,7 @@ const Plan: React.FC<PlanValues> = () => {
         </Box>
       </Modal>
 
-      {/* card */}
-      <Box sx={{ ml: 30, mr: 10 }}>
-        <Grid container>
-          {cards.map((card, index) => (
-            <Card key={index} sx={{ m: 2, height: '150px', width: '270px' }}>
-              <CardContent>
-                <Typography variant="h5" component="div">
-                  {card.name}
-                </Typography>
-                <Typography color="textSecondary" gutterBottom>
-                  Price: {card.price}
-                </Typography>
-                <Typography color="textSecondary" gutterBottom>
-                  Duration: {card.durationInMoths} months
-                </Typography>
-              </CardContent>
-            </Card>
-          ))}
-        </Grid>
-      </Box>
+      
     </div>
   );
 };
