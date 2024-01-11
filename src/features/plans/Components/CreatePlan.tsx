@@ -1,20 +1,10 @@
-import { Box, Button, TextField, Typography } from '@/components/Elements';
+import { Button, TextField, Typography } from '@/components/Elements';
+import { ModalForm } from '@/components/Form/Modal';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Grid, Modal, Stack } from '@mui/material';
-import { useState } from 'react';
+import { Stack } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-const style = {
-  position: 'absolute' as const,
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+
 const schema: yup.ObjectSchema<PlanValues> = yup.object().shape({
   name: yup.string().required('Name is required'),
   price: yup.number().required('Price is required'),
@@ -26,9 +16,6 @@ type PlanValues = {
   durationInMoths: number;
 };
 export const CreatePlan: React.FC<PlanValues> = () => {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const form = useForm<PlanValues>({
     defaultValues: {
       name: '',
@@ -40,85 +27,71 @@ export const CreatePlan: React.FC<PlanValues> = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState,
     reset,
   } = form;
+
+  const { errors,isDirty,isValid } =formState
   const onSubmit = (data: PlanValues) => {
     console.log(data);
     reset();
-    setOpen(false);
   };
   return (
     <div>
-      <Grid container>
-        <Grid item>
-          <Typography component="h1" variant="h6" sx={{ ml: 32 }}>
-            Add Plan
-          </Typography>
-        </Grid>
-        <Grid item sx={{ ml: 100 }}>
-          <Button variant="contained" onClick={handleOpen}>
-            Add Plan
-          </Button>
-        </Grid>
-      </Grid>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Stack spacing={2}>
-              <Typography
-                id="modal-modal-title"
-                variant="h5"
-                component="h2"
-                sx={{ mb: 2 }}
-              >
-                Add Plan
-              </Typography>
-              <TextField
-                label="Plan Name"
-                variant="outlined"
-                {...register('name')}
-                error={!!errors.name}
-                helperText={errors.name ? errors.name.message : ''}
-                sx={{ mb: 2 }}
-              />
-              <TextField
-                label="Price"
-                type="number"
-                variant="outlined"
-                {...register('price')}
-                error={!!errors.price}
-                helperText={errors.price ? errors.price.message : ''}
-                sx={{ mb: 2 }}
-              />
-              <TextField
-                label="Duration in Months"
-                type="number"
-                variant="outlined"
-                {...register('durationInMoths')}
-                error={!!errors.durationInMoths}
-                helperText={
-                  errors.durationInMoths ? errors.durationInMoths.message : ''
-                }
-                sx={{ mb: 2 }}
-              />
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                sx={{ mb: 2 }}
-              >
-                Submit
-              </Button>
-            </Stack>
-          </form>
-        </Box>
-      </Modal>
+      <Typography component="h1" variant="h6" sx={{ ml: 32 }}>
+        Add Plan
+      </Typography>
+      <ModalForm>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Stack spacing={2}>
+            <Typography
+              id="modal-modal-title"
+              variant="h5"
+              component="h2"
+              sx={{ mb: 2 }}
+            >
+              Add Plan
+            </Typography>
+            <TextField
+              label="Plan Name"
+              variant="outlined"
+              {...register('name')}
+              error={!!errors.name}
+              helperText={errors.name ? errors.name.message : ''}
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              label="Price"
+              type="number"
+              variant="outlined"
+              {...register('price')}
+              error={!!errors.price}
+              helperText={errors.price ? errors.price.message : ''}
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              label="Duration in Months"
+              type="number"
+              variant="outlined"
+              {...register('durationInMoths')}
+              error={!!errors.durationInMoths}
+              helperText={
+                errors.durationInMoths ? errors.durationInMoths.message : ''
+              }
+              sx={{ mb: 2 }}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              sx={{ mb: 2 }}
+              disabled={!isDirty || !isValid}
+            >
+              Submit
+            </Button>
+          </Stack>
+        </form>
+      </ModalForm>
     </div>
   );
 };
