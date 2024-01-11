@@ -6,9 +6,6 @@ export type CreatePlanRequestDTO = {
   durationInMoths: number;
 };
 
-export const createPlan = (
-  gymId: string,
-  data: CreatePlanRequestDTO,
-) => {
+export const createPlan = (gymId: string, data: CreatePlanRequestDTO) => {
   return axios.post(`/v1/gyms/${gymId}/plans`, data);
 };
