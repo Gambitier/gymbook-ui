@@ -1,4 +1,9 @@
-import { ChevronLeft, ChevronRight, Logout, Menu } from '@mui/icons-material';
+import {
+  ChevronLeft,
+  ChevronRight,
+  Logout,
+  Menu
+} from '@mui/icons-material';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';

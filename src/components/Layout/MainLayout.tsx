@@ -8,9 +8,9 @@ type MainLayoutProps = {
 const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div>
-      <Drawer />
-      {/* <Sidebar /> */}
-      <main>{children}</main>
+      <Drawer/>
+        {/* <Sidebar /> */}
+        <main>{children}</main>
       {/* </Drawer> */}
     </div>
   );
