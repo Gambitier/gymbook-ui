@@ -1,22 +1,17 @@
-import { NavLink } from 'react-router-dom';
-
-type SideNavigationItem = {
-  name: string;
-  to: string;
-};
+import Drawer from '../Elements/Drawer/Drawer';
+// import { Sidebar } from './Sidebar';
 
 type MainLayoutProps = {
   children: React.ReactNode;
 };
 
 const MainLayout = ({ children }: MainLayoutProps) => {
-  const navigation: SideNavigationItem[] = [{ name: 'Plan', to: './plan' }];
   return (
     <div>
-      {navigation.map((item, index) => (
-        <NavLink end={index === 0} key={item.name} to={item.to}></NavLink>
-      ))}
-      <main>{children}</main>
+      <Drawer/>
+        {/* <Sidebar /> */}
+        <main>{children}</main>
+      {/* </Drawer> */}
     </div>
   );
 };
