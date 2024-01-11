@@ -17,7 +17,7 @@ type PlanValues = {
   price: number;
   durationInMoths: number;
 };
-export const CreatePlan: React.FC<PlanValues> = () => {
+export const CreatePlan: React.FC = () => {
   const form = useForm<PlanValues>({
     defaultValues: {
       name: '',
