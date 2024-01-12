@@ -8,7 +8,11 @@ import { createPlan } from '../api/createPlan';
 const schema: yup.ObjectSchema<PlanValues> = yup.object().shape({
   name: yup.string().required('Name is required'),
   price: yup.number().required('Price is required'),
-  durationInMoths: yup.number().required('Duration in Months is required'),
+  durationInMoths: yup
+  .number()
+  .required('Duration in Months is required')
+  .min(1, 'Duration must be at least 1')
+  .max(12, 'Duration must be at most 12'),
 });
 
 type PlanValues = {
