@@ -12,4 +12,4 @@ export * from './Select';
 export * from './MenuItem';
 export * from './FormHelperText';
 export * from './Drawer';
-export * from './Stack'
+export * from './Stack';
