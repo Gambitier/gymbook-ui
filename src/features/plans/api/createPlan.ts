@@ -15,7 +15,7 @@ export const fetchPlans = (gymId: string) => {
   return axios.get(`/v1/gyms/${gymId}/plans`);
 };
 
-export const useTodos = (gymId: (string | undefined)[] | undefined) => {
+export const usePlans = (gymId: (string | undefined)[] | undefined) => {
   return useQueries({
     queries: (gymId ?? []).map((id) => {
       return {
