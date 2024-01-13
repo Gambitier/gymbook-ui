@@ -37,7 +37,6 @@ export const CreatePlan: React.FC = () => {
   const createPlanMutation = useCreatePlan(gymId);
   const onSubmit = async (data: PlanValues) => {
     console.log(data);
-    // await createPlan('b6ef37ab-1095-44e2-8b73-eaa1555d4df5', data);
     createPlanMutation.mutate(data);
     reset();
   };
