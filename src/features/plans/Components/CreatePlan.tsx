@@ -3,7 +3,6 @@ import { ModalForm } from '@/components/Form/Modal';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-// import { createPlan } from '../api/createPlan';
 import { useCreatePlan } from '../api/mutation';
 
 const schema: yup.ObjectSchema<PlanValues> = yup.object().shape({
