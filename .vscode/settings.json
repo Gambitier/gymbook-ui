@@ -1,6 +1,7 @@
 {
   "files.eol": "\n",
   "eslint.format.enable": true,
+  "files.autoSave": "onFocusChange",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": "never",
