@@ -1,19 +1,14 @@
-import Drawer from '../Elements/Drawer/Drawer';
-// import { Sidebar } from './Sidebar';
+import { Drawer } from '@/components/Elements';
 
 type MainLayoutProps = {
   children: React.ReactNode;
 };
 
-const MainLayout = ({ children }: MainLayoutProps) => {
+export const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div>
       <Drawer />
-      {/* <Sidebar /> */}
       <main>{children}</main>
-      {/* </Drawer> */}
     </div>
   );
 };
-
-export default MainLayout;
