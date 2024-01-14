@@ -44,9 +44,6 @@ export const CreatePlan: React.FC = () => {
 
   return (
     <div>
-      <Typography component="h1" variant="h6" sx={{ ml: 32 }}>
-        Add Plan
-      </Typography>
       <FormModal
         triggerButton={
           <Button variant="contained" sx={{ ml: 150 }}>
