@@ -3,7 +3,7 @@ import { ModalForm } from '@/components/Form/Modal';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { useCreatePlan } from '../api/mutation';
+import { useCreatePlan } from '../api/createPlan';
 
 const schema: yup.ObjectSchema<PlanValues> = yup.object().shape({
   name: yup.string().required('Name is required'),
@@ -37,7 +37,7 @@ export const CreatePlan: React.FC = () => {
   const createPlanMutation = useCreatePlan(gymId);
   const onSubmit = async (data: PlanValues) => {
     console.log(data);
-    createPlanMutation.mutate(data);
+    await createPlanMutation.mutateAsync(data);
     reset();
   };
 
