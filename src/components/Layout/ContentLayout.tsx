@@ -5,7 +5,7 @@ type ContentLayoutProps = {
   title: string;
 };
 
-const ContentLayout = ({ children, title }: ContentLayoutProps) => {
+export const ContentLayout = ({ children, title }: ContentLayoutProps) => {
   return (
     <>
       <div className="container">
@@ -17,5 +17,3 @@ const ContentLayout = ({ children, title }: ContentLayoutProps) => {
     </>
   );
 };
-
-export default ContentLayout;

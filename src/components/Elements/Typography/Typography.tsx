@@ -3,7 +3,7 @@ import {
   TypographyProps as MUITypographyProps,
 } from '@mui/material';
 
-export type TypographyProps = MUITypographyProps & {
+type TypographyProps = MUITypographyProps & {
   // Add any additional props specific to CustomTypography
 };
 

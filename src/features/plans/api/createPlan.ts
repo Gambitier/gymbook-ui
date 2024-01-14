@@ -2,13 +2,13 @@ import { CreatePlanResponseDTO } from '@/features/plans';
 import { axios } from '@/lib/axios';
 import { useMutation } from '@tanstack/react-query';
 
-export type CreatePlanRequestDTO = {
+type CreatePlanRequestDTO = {
   name: string;
   price: number;
   durationInMoths: number;
 };
 
-export const createPlan = (
+const createPlan = (
   gymId: string,
   data: CreatePlanRequestDTO,
 ): Promise<CreatePlanResponseDTO> => {

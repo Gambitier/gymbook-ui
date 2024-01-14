@@ -87,7 +87,7 @@ const MiniDrawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function Drawer() {
+export const Drawer = () => {
   const theme = useTheme();
   const navigation: SideNavigationItem[] = [{ name: 'Plan', to: 'plans' }];
   const [open, setOpen] = React.useState(false);
@@ -158,4 +158,4 @@ export default function Drawer() {
       </MiniDrawer>
     </Box>
   );
-}
+};

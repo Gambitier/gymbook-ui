@@ -1,6 +1,6 @@
 import { Stack as MUIStack, StackProps as MUIStackProps } from '@mui/material';
 
-export type StackProps = MUIStackProps & {
+type StackProps = MUIStackProps & {
   // Add any additional props specific to CustomTypography
 };
 

@@ -1,6 +1,6 @@
 import { Box as MUIBox, BoxProps as MUIBoxProps } from '@mui/material';
 
-export type BoxProps = MUIBoxProps & {
+type BoxProps = MUIBoxProps & {
   // Add any additional props specific to CustomTypography
 };
 

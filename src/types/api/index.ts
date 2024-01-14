@@ -15,7 +15,7 @@ export type APIErrorResponse = {
   response: string;
 };
 
-export enum HttpStatusCodeEnum {
+enum HttpStatusCodeEnum {
   CONTINUE = 100,
   SWITCHING_PROTOCOLS = 101,
   PROCESSING = 102,

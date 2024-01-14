@@ -1,4 +1,4 @@
-export type ObjectKeys<T> = Extract<keyof T, string | number>;
+type ObjectKeys<T> = Extract<keyof T, string | number>;
 
 export const getObjectKeys = <T extends Record<string, unknown>>(
   entity: T,
