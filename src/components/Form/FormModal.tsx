@@ -1,4 +1,4 @@
-import { Box, Button, Modal } from '@/components/Elements';
+import { Box, Modal } from '@/components/Elements';
 import * as React from 'react';
 
 const style = {
@@ -15,18 +15,17 @@ const style = {
 
 type FormModalProps = {
   children: React.ReactNode;
+  triggerButton: React.ReactElement;
 };
 
-export const FormModal = ({ children }: FormModalProps) => {
+export const FormModal = ({ children, triggerButton }: FormModalProps) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <div>
-      <Button variant="contained" onClick={handleOpen} sx={{ ml: 150 }}>
-        Add Plan
-      </Button>
+      {React.cloneElement(triggerButton, { onClick: handleOpen })}
       <Modal
         open={open}
         onClose={handleClose}

@@ -47,7 +47,13 @@ export const CreatePlan: React.FC = () => {
       <Typography component="h1" variant="h6" sx={{ ml: 32 }}>
         Add Plan
       </Typography>
-      <FormModal>
+      <FormModal
+        triggerButton={
+          <Button variant="contained" sx={{ ml: 150 }}>
+            Add New Plan
+          </Button>
+        }
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={2}>
             <Typography
