@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 
-export type TextFieldProps = MUITextFieldProps & {
+type TextFieldProps = MUITextFieldProps & {
   // Add any additional props specific to CustomTypography
 };
 

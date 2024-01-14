@@ -3,7 +3,7 @@ import {
   ContainerProps as MUIContainerProps,
 } from '@mui/material';
 
-export type ContainerProps = MUIContainerProps & {
+type ContainerProps = MUIContainerProps & {
   // Add any additional props specific to CustomContainer
 };
 

@@ -1,6 +1,6 @@
 import { APIResponse } from '@/types/api';
 
-export type CreatePlanResponse = {
+type CreatePlanResponse = {
   id: string;
   name: string;
   price: number;

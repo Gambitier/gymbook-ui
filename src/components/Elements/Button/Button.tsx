@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import clsx from 'clsx';
 
-export type ButtonProps = MUIButtonProps & {
+type ButtonProps = MUIButtonProps & {
   // Add any additional props specific to CustomButton
 };
 

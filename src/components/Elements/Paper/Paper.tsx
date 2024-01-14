@@ -1,6 +1,6 @@
 import { Paper as MUIPaper, PaperProps as MUIPaperProps } from '@mui/material';
 
-export type PaperProps = MUIPaperProps & {
+type PaperProps = MUIPaperProps & {
   // Add any additional props specific to CustomPaper
 };
 

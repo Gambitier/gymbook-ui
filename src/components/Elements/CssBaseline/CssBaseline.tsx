@@ -3,7 +3,7 @@ import {
   CssBaselineProps as MUICssBaselineProps,
 } from '@mui/material';
 
-export type CssBaselineProps = MUICssBaselineProps & {
+type CssBaselineProps = MUICssBaselineProps & {
   // Add any additional props specific to CustomCssBaseline
 };
 
