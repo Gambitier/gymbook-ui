@@ -78,6 +78,10 @@ export const CreatePlan: React.FC = () => {
             <TextField
               label="Duration in Months"
               type="number"
+              inputProps={{
+                min: 1,
+                max: 12,
+              }}
               variant="outlined"
               {...register('durationInMoths')}
               error={!!errors.durationInMoths}
