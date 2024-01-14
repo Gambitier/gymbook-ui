@@ -69,6 +69,9 @@ export const CreatePlan: React.FC = () => {
             <TextField
               label="Price"
               type="number"
+              inputProps={{
+                min: 0,
+              }}
               variant="outlined"
               {...register('price')}
               error={!!errors.price}
