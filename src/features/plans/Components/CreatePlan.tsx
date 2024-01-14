@@ -1,5 +1,5 @@
 import { Button, Stack, TextField, Typography } from '@/components/Elements';
-import { ModalForm } from '@/components/Form/Modal';
+import { FormModal } from '@/components/Form/FormModal';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -47,7 +47,7 @@ export const CreatePlan: React.FC = () => {
       <Typography component="h1" variant="h6" sx={{ ml: 32 }}>
         Add Plan
       </Typography>
-      <ModalForm>
+      <FormModal>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={2}>
             <Typography
@@ -104,7 +104,7 @@ export const CreatePlan: React.FC = () => {
             </Button>
           </Stack>
         </form>
-      </ModalForm>
+      </FormModal>
     </div>
   );
 };

@@ -1,6 +1,4 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
+import { Box, Button, Modal } from '@/components/Elements';
 import * as React from 'react';
 
 const style = {
@@ -15,10 +13,11 @@ const style = {
   p: 4,
 };
 
-type ModalFormProps = {
+type FormModalProps = {
   children: React.ReactNode;
 };
-export const ModalForm = ({ children }: ModalFormProps) => {
+
+export const FormModal = ({ children }: FormModalProps) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
