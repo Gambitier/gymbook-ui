@@ -28,8 +28,11 @@ export const createPlan = (
   return axios.post(`/v1/gyms/${gymId}/plans`, data);
 };
 
-export const useCreatePlan = (gymId: string) => {
+export const useCreatePlan = () => {
   return useMutation({
-    mutationFn: (data: CreatePlanRequestDTO) => createPlan(gymId, data),
+    mutationFn: (input: { gymId: string; data: CreatePlanRequestDTO }) => {
+      const { gymId, data } = input;
+      return createPlan(gymId, data);
+    },
   });
 };

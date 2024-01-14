@@ -34,10 +34,10 @@ export const CreatePlan: React.FC = () => {
 
   const { errors, isDirty, isValid } = formState;
   const gymId = 'b6ef37ab-1095-44e2-8b73-eaa1555d4df5';
-  const createPlanMutation = useCreatePlan(gymId);
+  const createPlanMutation = useCreatePlan();
   const onSubmit = async (data: PlanValues) => {
     console.log(data);
-    await createPlanMutation.mutateAsync(data);
+    await createPlanMutation.mutateAsync({ gymId, data });
     reset();
   };
 
