@@ -11,7 +11,7 @@ export const ContentLayout = ({ children, title }: ContentLayoutProps) => {
     <>
       <Box>
         <Box>
-          <Typography variant="h1">{title}</Typography>
+          <Typography variant="h4">{title}</Typography>
         </Box>
         <Box>{children}</Box>
       </Box>
