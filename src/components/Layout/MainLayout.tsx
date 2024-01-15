@@ -7,8 +7,7 @@ type MainLayoutProps = {
 export const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div>
-      <AppDrawer />
-      <main>{children}</main>
+      <AppDrawer>{children}</AppDrawer>
     </div>
   );
 };
