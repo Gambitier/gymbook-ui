@@ -51,6 +51,7 @@ export const CreatePlan: React.FC = () => {
           color="primary"
           sx={{ mb: 2 }}
           disabled={!isDirty || !isValid}
+          onClick={handleSubmit(onSubmit)}
         >
           Submit
         </Button>
@@ -101,16 +102,6 @@ export const CreatePlan: React.FC = () => {
             }
             sx={{ mb: 2 }}
           />
-
-          {/* <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            sx={{ mb: 2 }}
-            disabled={!isDirty || !isValid}
-          >
-            Submit
-          </Button> */}
         </Stack>
       </form>
     </FormModal>

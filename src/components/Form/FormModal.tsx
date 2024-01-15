@@ -26,7 +26,7 @@ export const FormModal = ({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         renderFooter={() => (
-          <Grid container spacing={1} justifyContent="center">
+          <Grid container sx={{ mt: 1 }} spacing={1} justifyContent="center">
             <Grid item>
               <Button variant="contained" onClick={handleClose}>
                 Cancel
