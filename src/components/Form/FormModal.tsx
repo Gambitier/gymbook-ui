@@ -1,17 +1,6 @@
-import { Box, Button, Modal } from '@/components/Elements';
+import { Button, Modal } from '@/components/Elements';
+import { Grid } from '@mui/material';
 import * as React from 'react';
-
-const style = {
-  position: 'absolute' as const,
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
 
 type FormModalProps = {
   children: React.ReactNode;
@@ -37,15 +26,17 @@ export const FormModal = ({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         renderFooter={() => (
-          <>
-            <Button variant="contained" onClick={handleClose}>
-              Cancel
-            </Button>
-            {submitButton}
-          </>
+          <Grid container spacing={1} justifyContent="center">
+            <Grid item>
+              <Button variant="contained" onClick={handleClose}>
+                Cancel
+              </Button>
+            </Grid>
+            <Grid item>{submitButton}</Grid>
+          </Grid>
         )}
       >
-        <Box sx={style}>{children}</Box>
+        <>{children}</>
       </Modal>
     </div>
   );
