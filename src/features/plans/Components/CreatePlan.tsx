@@ -63,12 +63,7 @@ export const CreatePlan: React.FC = () => {
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
-          <Typography
-            id="modal-modal-title"
-            variant="h5"
-            component="h2"
-            sx={{ mb: 2 }}
-          >
+          <Typography variant="h5" component="h2" sx={{ mb: 2 }}>
             Add Plan
           </Typography>
           <TextField
