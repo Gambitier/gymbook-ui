@@ -1,4 +1,4 @@
-import { Drawer } from '@/components/Elements';
+import AppDrawer from '@/components/Elements/Drawer/AppDrawer';
 
 type MainLayoutProps = {
   children: React.ReactNode;
@@ -7,7 +7,7 @@ type MainLayoutProps = {
 export const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <div>
-      <Drawer />
+      <AppDrawer />
       <main>{children}</main>
     </div>
   );

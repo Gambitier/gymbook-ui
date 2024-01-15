@@ -87,7 +87,7 @@ const MiniDrawer = styled(MuiDrawer, {
   }),
 }));
 
-export const Drawer = () => {
+export const DrawerOld = () => {
   const theme = useTheme();
   const navigation: SideNavigationItem[] = [{ name: 'Plan', to: 'plans' }];
   const [open, setOpen] = React.useState(false);
