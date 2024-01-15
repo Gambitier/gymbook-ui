@@ -44,6 +44,17 @@ export const CreatePlan: React.FC = () => {
 
   return (
     <FormModal
+      submitButton={
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          sx={{ mb: 2 }}
+          disabled={!isDirty || !isValid}
+        >
+          Submit
+        </Button>
+      }
       triggerButton={
         <Button variant="contained" sx={{ ml: 150 }}>
           Add New Plan
@@ -95,7 +106,8 @@ export const CreatePlan: React.FC = () => {
             }
             sx={{ mb: 2 }}
           />
-          <Button
+
+          {/* <Button
             type="submit"
             variant="contained"
             color="primary"
@@ -103,7 +115,7 @@ export const CreatePlan: React.FC = () => {
             disabled={!isDirty || !isValid}
           >
             Submit
-          </Button>
+          </Button> */}
         </Stack>
       </form>
     </FormModal>

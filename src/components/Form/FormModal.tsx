@@ -1,4 +1,4 @@
-import { Box, Modal } from '@/components/Elements';
+import { Box, Button, Modal } from '@/components/Elements';
 import * as React from 'react';
 
 const style = {
@@ -16,9 +16,14 @@ const style = {
 type FormModalProps = {
   children: React.ReactNode;
   triggerButton: React.ReactElement;
+  submitButton: React.ReactElement;
 };
 
-export const FormModal = ({ children, triggerButton }: FormModalProps) => {
+export const FormModal = ({
+  children,
+  triggerButton,
+  submitButton,
+}: FormModalProps) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -31,6 +36,14 @@ export const FormModal = ({ children, triggerButton }: FormModalProps) => {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        renderFooter={() => (
+          <>
+            <Button variant="contained" onClick={handleClose}>
+              Cancel
+            </Button>
+            {submitButton}
+          </>
+        )}
       >
         <Box sx={style}>{children}</Box>
       </Modal>
