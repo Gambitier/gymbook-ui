@@ -1,4 +1,5 @@
 import { Box, Button, Modal } from '@/components/Elements';
+import { Grid } from '@mui/material';
 import * as React from 'react';
 
 const style = {
@@ -37,12 +38,19 @@ export const FormModal = ({
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         renderFooter={() => (
-          <>
-            <Button variant="contained" onClick={handleClose}>
-              Cancel
-            </Button>
-            {submitButton}
-          </>
+          <Grid
+            id="footer-Buttons"
+            container
+            spacing={1}
+            justifyContent="flex-end"
+          >
+            <Grid item>
+              <Button variant="contained" onClick={handleClose}>
+                Cancel
+              </Button>
+            </Grid>
+            <Grid item>{submitButton}</Grid>
+          </Grid>
         )}
       >
         <Box sx={style}>{children}</Box>
