@@ -51,7 +51,7 @@ export const CreatePlan: React.FC = () => {
           color="primary"
           sx={{ mb: 2 }}
           disabled={!isDirty || !isValid}
-          onClick={handleSubmit(onSubmit)}
+          form="create-plan"
         >
           Submit
         </Button>
@@ -62,7 +62,7 @@ export const CreatePlan: React.FC = () => {
         </Button>
       }
     >
-      <form>
+      <form id="create-plan" onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
           <Typography variant="h5" component="h2" sx={{ mb: 2 }}>
             Add Plan
