@@ -1,6 +1,7 @@
 import { Button, Stack, TextField, Typography } from '@/components/Elements';
 import { FormModal } from '@/components/Form/FormModal';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Grid } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { useCreatePlan } from '../api/createPlan';
@@ -57,9 +58,9 @@ export const CreatePlan: React.FC = () => {
         </Button>
       }
       triggerButton={
-        <Button variant="contained" sx={{ ml: 150 }}>
-          Add New Plan
-        </Button>
+        <Grid container justifyContent="flex-end">
+          <Button variant="contained">Add New Plan</Button>
+        </Grid>
       }
     >
       <form id="create-plan" onSubmit={handleSubmit(onSubmit)}>
