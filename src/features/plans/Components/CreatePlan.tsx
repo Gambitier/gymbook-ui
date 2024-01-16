@@ -48,7 +48,7 @@ export const CreatePlan: React.FC = () => {
     reset();
   };
 
-  const createPlanSubmitButton = (
+  const SubmitButton = (
     <Button
       type="submit"
       variant="contained"
@@ -60,7 +60,7 @@ export const CreatePlan: React.FC = () => {
     </Button>
   );
 
-  const createPlanTriggerButton = (
+  const TriggerButton = (
     <Grid container justifyContent="flex-end">
       <Button variant="contained">Add New Plan</Button>
     </Grid>
@@ -68,8 +68,8 @@ export const CreatePlan: React.FC = () => {
 
   return (
     <FormModal
-      submitButton={createPlanSubmitButton}
-      triggerButton={createPlanTriggerButton}
+      submitButton={SubmitButton}
+      triggerButton={TriggerButton}
       title="Add Plan"
     >
       <form id={formId} onSubmit={handleSubmit(onSubmit)}>
