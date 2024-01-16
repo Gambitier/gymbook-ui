@@ -91,7 +91,6 @@ const CreatePlanForm = () => {
     <Button
       type="submit"
       variant="contained"
-      color="primary"
       disabled={!isDirty || !isValid}
       form={formId}
     >
