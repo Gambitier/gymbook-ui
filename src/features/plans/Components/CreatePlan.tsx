@@ -22,7 +22,7 @@ const schema: yup.ObjectSchema<CreatePlanFormValues> = yup.object().shape({
     .max(12, 'Duration must be at most 12'),
 });
 
-function useFormWithValidation() {
+const useFormWithValidation = () => {
   const form = useForm<CreatePlanFormValues>({
     defaultValues: {
       name: '',
@@ -33,9 +33,9 @@ function useFormWithValidation() {
   });
 
   return form;
-}
+};
 
-export const CreatePlan: React.FC = () => {
+const CreatePlanForm = () => {
   const form = useFormWithValidation();
   const { register, handleSubmit, formState, reset } = form;
   const { errors, isDirty, isValid } = formState;
@@ -47,6 +47,45 @@ export const CreatePlan: React.FC = () => {
     await createPlanMutation.mutateAsync({ gymId, data });
     reset();
   };
+
+  const Form = (
+    <form id={formId} onSubmit={handleSubmit(onSubmit)}>
+      <Stack spacing={2}>
+        <TextField
+          label="Plan Name"
+          variant="outlined"
+          {...register('name')}
+          error={!!errors.name}
+          helperText={errors.name ? errors.name.message : ''}
+        />
+        <TextField
+          label="Price"
+          type="number"
+          inputProps={{
+            min: 0,
+          }}
+          variant="outlined"
+          {...register('price')}
+          error={!!errors.price}
+          helperText={errors.price ? errors.price.message : ''}
+        />
+        <TextField
+          label="Duration in Months"
+          type="number"
+          inputProps={{
+            min: 1,
+            max: 12,
+          }}
+          variant="outlined"
+          {...register('durationInMoths')}
+          error={!!errors.durationInMoths}
+          helperText={
+            errors.durationInMoths ? errors.durationInMoths.message : ''
+          }
+        />
+      </Stack>
+    </form>
+  );
 
   const SubmitButton = (
     <Button
@@ -60,6 +99,12 @@ export const CreatePlan: React.FC = () => {
     </Button>
   );
 
+  return { SubmitButton, Form };
+};
+
+export const CreatePlan: React.FC = () => {
+  const { SubmitButton, Form } = CreatePlanForm();
+
   const TriggerButton = (
     <Grid container justifyContent="flex-end">
       <Button variant="contained">Add New Plan</Button>
@@ -72,42 +117,7 @@ export const CreatePlan: React.FC = () => {
       triggerButton={TriggerButton}
       title="Add Plan"
     >
-      <form id={formId} onSubmit={handleSubmit(onSubmit)}>
-        <Stack spacing={2}>
-          <TextField
-            label="Plan Name"
-            variant="outlined"
-            {...register('name')}
-            error={!!errors.name}
-            helperText={errors.name ? errors.name.message : ''}
-          />
-          <TextField
-            label="Price"
-            type="number"
-            inputProps={{
-              min: 0,
-            }}
-            variant="outlined"
-            {...register('price')}
-            error={!!errors.price}
-            helperText={errors.price ? errors.price.message : ''}
-          />
-          <TextField
-            label="Duration in Months"
-            type="number"
-            inputProps={{
-              min: 1,
-              max: 12,
-            }}
-            variant="outlined"
-            {...register('durationInMoths')}
-            error={!!errors.durationInMoths}
-            helperText={
-              errors.durationInMoths ? errors.durationInMoths.message : ''
-            }
-          />
-        </Stack>
-      </form>
+      {Form}
     </FormModal>
   );
 };
