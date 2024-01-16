@@ -1,12 +1,22 @@
-import { Modal as MUIModal, ModalProps as MUIModalProps } from '@mui/material';
+import {
+  Modal as MUIModal,
+  ModalProps as MUIModalProps,
+  Typography,
+} from '@mui/material';
 import { Box } from '../Box';
 
 type ModalProps = MUIModalProps & {
   // Add any additional props specific to CustomTypography
   renderFooter: () => React.ReactNode;
+  title: string;
 };
 
-export const Modal = ({ children, renderFooter, ...props }: ModalProps) => {
+export const Modal = ({
+  children,
+  title,
+  renderFooter,
+  ...props
+}: ModalProps) => {
   return (
     <MUIModal {...props}>
       <Box
@@ -21,6 +31,9 @@ export const Modal = ({ children, renderFooter, ...props }: ModalProps) => {
           border: '2px solid #000',
         }}
       >
+        <Typography variant="h5" component="h2" sx={{ mb: 2 }}>
+          {title}
+        </Typography>
         {children}
         {renderFooter()}
       </Box>

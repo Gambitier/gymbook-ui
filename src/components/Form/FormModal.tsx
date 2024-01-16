@@ -6,12 +6,14 @@ type FormModalProps = {
   children: React.ReactNode;
   triggerButton: React.ReactElement;
   submitButton: React.ReactElement;
+  title: string;
 };
 
 export const FormModal = ({
   children,
   triggerButton,
   submitButton,
+  title,
 }: FormModalProps) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -21,6 +23,7 @@ export const FormModal = ({
     <div>
       {React.cloneElement(triggerButton, { onClick: handleOpen })}
       <Modal
+        title={title}
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"

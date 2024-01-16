@@ -1,4 +1,4 @@
-import { Button, Stack, TextField, Typography } from '@/components/Elements';
+import { Button, Stack, TextField } from '@/components/Elements';
 import { FormModal } from '@/components/Form/FormModal';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Grid } from '@mui/material';
@@ -6,7 +6,13 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { useCreatePlan } from '../api/createPlan';
 
-const schema: yup.ObjectSchema<PlanValues> = yup.object().shape({
+type CreatePlanFormValues = {
+  name: string;
+  price: number;
+  durationInMoths: number;
+};
+
+const schema: yup.ObjectSchema<CreatePlanFormValues> = yup.object().shape({
   name: yup.string().required('Name is required'),
   price: yup.number().required('Price is required'),
   durationInMoths: yup
@@ -16,14 +22,8 @@ const schema: yup.ObjectSchema<PlanValues> = yup.object().shape({
     .max(12, 'Duration must be at most 12'),
 });
 
-type PlanValues = {
-  name: string;
-  price: number;
-  durationInMoths: number;
-};
-
-export const CreatePlan: React.FC = () => {
-  const form = useForm<PlanValues>({
+function useFormWithValidation() {
+  const form = useForm<CreatePlanFormValues>({
     defaultValues: {
       name: '',
       price: 0,
@@ -32,49 +32,53 @@ export const CreatePlan: React.FC = () => {
     resolver: yupResolver(schema),
   });
 
-  const { register, handleSubmit, formState, reset } = form;
+  return form;
+}
 
+export const CreatePlan: React.FC = () => {
+  const form = useFormWithValidation();
+  const { register, handleSubmit, formState, reset } = form;
   const { errors, isDirty, isValid } = formState;
-  const gymId = 'b6ef37ab-1095-44e2-8b73-eaa1555d4df5';
+
   const createPlanMutation = useCreatePlan();
-  const onSubmit = async (data: PlanValues) => {
-    console.log(data);
+  const onSubmit = async (data: CreatePlanFormValues) => {
+    const gymId = 'b6ef37ab-1095-44e2-8b73-eaa1555d4df5';
     await createPlanMutation.mutateAsync({ gymId, data });
     reset();
   };
 
+  const createPlanSubmitButton = (
+    <Button
+      type="submit"
+      variant="contained"
+      color="primary"
+      disabled={!isDirty || !isValid}
+      form="create-plan"
+    >
+      Submit
+    </Button>
+  );
+
+  const createPlanTriggerButton = (
+    <Grid container justifyContent="flex-end">
+      <Button variant="contained">Add New Plan</Button>
+    </Grid>
+  );
+
   return (
     <FormModal
-      submitButton={
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          sx={{ mb: 2 }}
-          disabled={!isDirty || !isValid}
-          form="create-plan"
-        >
-          Submit
-        </Button>
-      }
-      triggerButton={
-        <Grid container justifyContent="flex-end">
-          <Button variant="contained">Add New Plan</Button>
-        </Grid>
-      }
+      submitButton={createPlanSubmitButton}
+      triggerButton={createPlanTriggerButton}
+      title="Add Plan"
     >
       <form id="create-plan" onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
-          <Typography variant="h5" component="h2" sx={{ mb: 2 }}>
-            Add Plan
-          </Typography>
           <TextField
             label="Plan Name"
             variant="outlined"
             {...register('name')}
             error={!!errors.name}
             helperText={errors.name ? errors.name.message : ''}
-            sx={{ mb: 2 }}
           />
           <TextField
             label="Price"
@@ -86,7 +90,6 @@ export const CreatePlan: React.FC = () => {
             {...register('price')}
             error={!!errors.price}
             helperText={errors.price ? errors.price.message : ''}
-            sx={{ mb: 2 }}
           />
           <TextField
             label="Duration in Months"
@@ -101,7 +104,6 @@ export const CreatePlan: React.FC = () => {
             helperText={
               errors.durationInMoths ? errors.durationInMoths.message : ''
             }
-            sx={{ mb: 2 }}
           />
         </Stack>
       </form>
