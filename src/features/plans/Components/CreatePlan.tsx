@@ -39,6 +39,7 @@ export const CreatePlan: React.FC = () => {
   const form = useFormWithValidation();
   const { register, handleSubmit, formState, reset } = form;
   const { errors, isDirty, isValid } = formState;
+  const formId = 'create-plan';
 
   const createPlanMutation = useCreatePlan();
   const onSubmit = async (data: CreatePlanFormValues) => {
@@ -53,7 +54,7 @@ export const CreatePlan: React.FC = () => {
       variant="contained"
       color="primary"
       disabled={!isDirty || !isValid}
-      form="create-plan"
+      form={formId}
     >
       Submit
     </Button>
@@ -71,7 +72,7 @@ export const CreatePlan: React.FC = () => {
       triggerButton={createPlanTriggerButton}
       title="Add Plan"
     >
-      <form id="create-plan" onSubmit={handleSubmit(onSubmit)}>
+      <form id={formId} onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={2}>
           <TextField
             label="Plan Name"
