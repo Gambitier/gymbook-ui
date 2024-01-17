@@ -1,7 +1,7 @@
 import { Button, Modal } from '@/components/Elements';
 import { Grid } from '@mui/material';
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 type FormModalProps = {
   children: React.ReactNode;
@@ -20,7 +20,7 @@ export const FormModal = ({
 }: FormModalProps) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = useCallback(() => setOpen(false), []);
 
   useEffect(() => {
     if (isDone) {
