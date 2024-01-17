@@ -103,7 +103,7 @@ const CreatePlanForm = () => {
 
 export const CreatePlan: React.FC = () => {
   const { SubmitButton, Form } = CreatePlanForm();
-
+  const createPlanMutation = useCreatePlan();
   const TriggerButton = (
     <Grid container justifyContent="flex-end">
       <Button variant="contained">Add New Plan</Button>
@@ -115,6 +115,7 @@ export const CreatePlan: React.FC = () => {
       submitButton={SubmitButton}
       triggerButton={TriggerButton}
       title="Add Plan"
+      isDone={createPlanMutation.isSuccess}
     >
       {Form}
     </FormModal>

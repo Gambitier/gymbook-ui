@@ -1,23 +1,32 @@
 import { Button, Modal } from '@/components/Elements';
 import { Grid } from '@mui/material';
 import * as React from 'react';
+import { useEffect } from 'react';
 
 type FormModalProps = {
   children: React.ReactNode;
   triggerButton: React.ReactElement;
   submitButton: React.ReactElement;
   title: string;
+  isDone: boolean;
 };
 
 export const FormModal = ({
   children,
   triggerButton,
+  isDone,
   submitButton,
   title,
 }: FormModalProps) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  useEffect(() => {
+    if (isDone) {
+      handleClose();
+    }
+  }, [isDone, handleClose]);
 
   return (
     <div>
