@@ -98,12 +98,11 @@ const CreatePlanForm = () => {
     </Button>
   );
 
-  return { SubmitButton, Form };
+  return { SubmitButton, Form, createPlanMutation };
 };
 
 export const CreatePlan: React.FC = () => {
-  const { SubmitButton, Form } = CreatePlanForm();
-  const createPlanMutation = useCreatePlan();
+  const { SubmitButton, Form, createPlanMutation } = CreatePlanForm();
   const TriggerButton = (
     <Grid container justifyContent="flex-end">
       <Button variant="contained">Add New Plan</Button>
