@@ -9,15 +9,9 @@ import { useEffect, useRef, useState } from 'react';
 
 type ButtonProps = MUIButtonProps & {
   // Add any additional props specific to CustomButton
-  isLoading?: boolean;
 };
 
-export const Button = ({
-  className,
-  children,
-  isLoading = false,
-  ...props
-}: ButtonProps) => {
+export const Button = ({ className, children, ...props }: ButtonProps) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const timer = useRef<number>();
