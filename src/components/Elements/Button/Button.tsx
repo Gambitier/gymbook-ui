@@ -13,17 +13,7 @@ type ButtonProps = MUIButtonProps & {
 
 export const Button = ({ className, children, ...props }: ButtonProps) => {
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
   const timer = useRef<number>();
-
-  const buttonSx = {
-    ...(success && {
-      bgcolor: green[500],
-      '&:hover': {
-        bgcolor: green[700],
-      },
-    }),
-  };
 
   useEffect(() => {
     return () => {
@@ -33,10 +23,8 @@ export const Button = ({ className, children, ...props }: ButtonProps) => {
 
   const handleButtonClick = () => {
     if (!loading) {
-      setSuccess(false);
       setLoading(true);
       timer.current = window.setTimeout(() => {
-        setSuccess(true);
         setLoading(false);
       }, 2000);
     }
@@ -48,7 +36,6 @@ export const Button = ({ className, children, ...props }: ButtonProps) => {
         className={clsx(className)}
         {...props}
         variant="contained"
-        sx={buttonSx}
         disabled={loading}
         onClick={handleButtonClick}
       >
