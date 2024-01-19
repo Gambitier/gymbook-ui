@@ -4,6 +4,7 @@ export * from './Container';
 export * from './CssBaseline';
 export * from './Drawer';
 export * from './Link';
+export * from './Modal';
 export * from './Paper';
 export * from './Stack';
 export * from './TextField';

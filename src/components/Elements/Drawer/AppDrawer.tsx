@@ -1,21 +1,23 @@
-import { ChevronLeft, ChevronRight, Logout, Menu } from '@mui/icons-material';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import MenuIcon from '@mui/icons-material/Menu';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import MuiDrawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { CSSObject, Theme, styled, useTheme } from '@mui/material/styles';
 import * as React from 'react';
-import { NavLink } from 'react-router-dom';
-import { Button } from '../Button';
-
-type SideNavigationItem = {
-  name: string;
-  to: string;
-};
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -45,6 +47,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'flex-end',
   padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
@@ -70,7 +73,7 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const MiniDrawer = styled(MuiDrawer, {
+const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
   width: drawerWidth,
@@ -87,10 +90,19 @@ const MiniDrawer = styled(MuiDrawer, {
   }),
 }));
 
-export const Drawer = () => {
+type SideNavigationItem = {
+  name: string;
+  to: string;
+};
+
+type AppDrawerProps = {
+  children: React.ReactNode;
+};
+
+export default function AppDrawer({ children }: AppDrawerProps) {
   const theme = useTheme();
-  const navigation: SideNavigationItem[] = [{ name: 'Plan', to: 'plans' }];
   const [open, setOpen] = React.useState(false);
+  const navigation: SideNavigationItem[] = [{ name: 'Plan', to: 'plans' }];
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -100,15 +112,10 @@ export const Drawer = () => {
     setOpen(false);
   };
 
-  const handleLogout = () => {
-    localStorage.clear();
-    window.location.href = '/';
-  };
-
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" sx={{ backgroundColor: 'white' }} open={open}>
+      <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -118,44 +125,60 @@ export const Drawer = () => {
             sx={{
               marginRight: 5,
               ...(open && { display: 'none' }),
-              color: 'darkgray',
             }}
           >
-            <Menu />
+            <MenuIcon />
           </IconButton>
-          <Typography
-            variant="h6"
-            sx={{ color: 'black' }}
-            noWrap
-            component="div"
-          >
-            Gymbook
+          <Typography variant="h6" noWrap component="div">
+            Gym Book
           </Typography>
-          <Button
-            variant="outlined"
-            color="success"
-            onClick={handleLogout}
-            sx={{ marginLeft: '80%' }}
-          >
-            <Logout /> Logout
-          </Button>
         </Toolbar>
       </AppBar>
-      <MiniDrawer variant="permanent" open={open}>
+      <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRight /> : <ChevronLeft />}
+            {theme.direction === 'rtl' ? (
+              <ChevronRightIcon />
+            ) : (
+              <ChevronLeftIcon />
+            )}
           </IconButton>
         </DrawerHeader>
         <Divider />
-        {navigation.map((item, index) => (
-          <Button>
-            <NavLink end={index === 0} key={item.name} to={item.to}>
-              {item.name}
-            </NavLink>
-          </Button>
-        ))}
-      </MiniDrawer>
+        <List>
+          {navigation.map((item, _) => (
+            <ListItem key={item.name} disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                component={Link}
+                to={item.to}
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <InboxIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.name}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <DrawerHeader />
+        {children}
+      </Box>
     </Box>
   );
-};
+}

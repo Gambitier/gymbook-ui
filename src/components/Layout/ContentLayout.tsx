@@ -1,5 +1,6 @@
+import { Box, Typography } from '@/components/Elements';
+import { Head } from '@/components/head';
 import React from 'react';
-
 type ContentLayoutProps = {
   children: React.ReactNode;
   title: string;
@@ -8,12 +9,13 @@ type ContentLayoutProps = {
 export const ContentLayout = ({ children, title }: ContentLayoutProps) => {
   return (
     <>
-      <div className="container">
-        <div className="heading">
-          <h1>{title}</h1>
-        </div>
-        <div className="description">{children}</div>
-      </div>
+      <Head title={title} />
+      <Box>
+        <Box>
+          <Typography variant="h4">{title}</Typography>
+        </Box>
+        <Box>{children}</Box>
+      </Box>
     </>
   );
 };

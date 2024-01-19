@@ -1,11 +1,18 @@
-import { Button, Stack, TextField, Typography } from '@/components/Elements';
-import { ModalForm } from '@/components/Form/Modal';
+import { Button, Stack, TextField } from '@/components/Elements';
+import { FormModal } from '@/components/Form/FormModal';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Grid } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { useCreatePlan } from '../api/createPlan';
 
-const schema: yup.ObjectSchema<PlanValues> = yup.object().shape({
+type CreatePlanFormValues = {
+  name: string;
+  price: number;
+  durationInMoths: number;
+};
+
+const schema: yup.ObjectSchema<CreatePlanFormValues> = yup.object().shape({
   name: yup.string().required('Name is required'),
   price: yup.number().required('Price is required'),
   durationInMoths: yup
@@ -15,14 +22,8 @@ const schema: yup.ObjectSchema<PlanValues> = yup.object().shape({
     .max(12, 'Duration must be at most 12'),
 });
 
-type PlanValues = {
-  name: string;
-  price: number;
-  durationInMoths: number;
-};
-
-export const CreatePlan: React.FC = () => {
-  const form = useForm<PlanValues>({
+const useFormWithValidation = () => {
+  const form = useForm<CreatePlanFormValues>({
     defaultValues: {
       name: '',
       price: 0,
@@ -31,80 +32,93 @@ export const CreatePlan: React.FC = () => {
     resolver: yupResolver(schema),
   });
 
-  const { register, handleSubmit, formState, reset } = form;
+  return form;
+};
 
+const CreatePlanForm = () => {
+  const form = useFormWithValidation();
+  const { register, handleSubmit, formState, reset } = form;
   const { errors, isDirty, isValid } = formState;
-  const gymId = 'b6ef37ab-1095-44e2-8b73-eaa1555d4df5';
+  const formId = 'create-plan';
+
   const createPlanMutation = useCreatePlan();
-  const onSubmit = async (data: PlanValues) => {
-    console.log(data);
+  const onSubmit = async (data: CreatePlanFormValues) => {
+    const gymId = 'b6ef37ab-1095-44e2-8b73-eaa1555d4df5';
     await createPlanMutation.mutateAsync({ gymId, data });
     reset();
   };
 
+  const Form = (
+    <form id={formId} onSubmit={handleSubmit(onSubmit)}>
+      <Stack spacing={2}>
+        <TextField
+          label="Plan Name"
+          variant="outlined"
+          {...register('name')}
+          error={!!errors.name}
+          helperText={errors.name ? errors.name.message : ''}
+        />
+        <TextField
+          label="Price"
+          type="number"
+          inputProps={{
+            min: 0,
+          }}
+          variant="outlined"
+          {...register('price')}
+          error={!!errors.price}
+          helperText={errors.price ? errors.price.message : ''}
+        />
+        <TextField
+          label="Duration in Months"
+          type="number"
+          inputProps={{
+            min: 1,
+            max: 12,
+          }}
+          variant="outlined"
+          {...register('durationInMoths')}
+          error={!!errors.durationInMoths}
+          helperText={
+            errors.durationInMoths ? errors.durationInMoths.message : ''
+          }
+        />
+      </Stack>
+    </form>
+  );
+
+  const SubmitButton = (
+    <Button
+      type="submit"
+      variant="contained"
+      disabled={!isDirty || !isValid || createPlanMutation.isPending}
+      form={formId}
+      isLoading={createPlanMutation.isPending}
+    >
+      Submit
+    </Button>
+  );
+
+  const isSuccess = createPlanMutation.isSuccess;
+  return { SubmitButton, Form, isSuccess };
+};
+
+export const CreatePlan: React.FC = () => {
+  const { SubmitButton, Form, isSuccess } = CreatePlanForm();
+  const TriggerButton = (
+    <Grid container justifyContent="flex-end">
+      <Button variant="contained">Add New Plan</Button>
+    </Grid>
+  );
+
   return (
-    <div>
-      <Typography component="h1" variant="h6" sx={{ ml: 32 }}>
-        Add Plan
-      </Typography>
-      <ModalForm>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Stack spacing={2}>
-            <Typography
-              id="modal-modal-title"
-              variant="h5"
-              component="h2"
-              sx={{ mb: 2 }}
-            >
-              Add Plan
-            </Typography>
-            <TextField
-              label="Plan Name"
-              variant="outlined"
-              {...register('name')}
-              error={!!errors.name}
-              helperText={errors.name ? errors.name.message : ''}
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              label="Price"
-              type="number"
-              inputProps={{
-                min: 0,
-              }}
-              variant="outlined"
-              {...register('price')}
-              error={!!errors.price}
-              helperText={errors.price ? errors.price.message : ''}
-              sx={{ mb: 2 }}
-            />
-            <TextField
-              label="Duration in Months"
-              type="number"
-              inputProps={{
-                min: 1,
-                max: 12,
-              }}
-              variant="outlined"
-              {...register('durationInMoths')}
-              error={!!errors.durationInMoths}
-              helperText={
-                errors.durationInMoths ? errors.durationInMoths.message : ''
-              }
-              sx={{ mb: 2 }}
-            />
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              sx={{ mb: 2 }}
-              disabled={!isDirty || !isValid}
-            >
-              Submit
-            </Button>
-          </Stack>
-        </form>
-      </ModalForm>
-    </div>
+    <FormModal
+      submitButton={SubmitButton}
+      triggerButton={TriggerButton}
+      title="Add Plan"
+      isDone={isSuccess}
+    >
+      {Form}
+    </FormModal>
   );
 };
