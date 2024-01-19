@@ -7,18 +7,18 @@ import clsx from 'clsx';
 
 type ButtonProps = MUIButtonProps & {
   // Add any additional props specific to CustomButton
-  loading?: boolean;
+  isLoading?: boolean;
 };
 
 export const Button = ({
   className,
   children,
-  loading,
+  isLoading,
   ...props
 }: ButtonProps) => {
   return (
-    <MUIButton className={clsx(className)} {...props} disabled={loading}>
-      {loading ? <CircularProgress size={24} color="inherit" /> : children}
+    <MUIButton className={clsx(className)} {...props}>
+      {isLoading ? <CircularProgress size={24} color="inherit" /> : children}
     </MUIButton>
   );
 };

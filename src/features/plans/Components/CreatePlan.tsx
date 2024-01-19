@@ -93,7 +93,7 @@ const CreatePlanForm = () => {
       variant="contained"
       disabled={!isDirty || !isValid}
       form={formId}
-      loading={false}
+      isLoading={createPlanMutation.isPending}
     >
       Submit
     </Button>
