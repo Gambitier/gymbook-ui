@@ -93,6 +93,7 @@ const CreatePlanForm = () => {
       variant="contained"
       disabled={!isDirty || !isValid}
       form={formId}
+      loading={false}
     >
       Submit
     </Button>
