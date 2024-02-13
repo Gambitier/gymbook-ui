@@ -13,7 +13,6 @@ import {
 } from '@mui/material';
 import {
   ColumnDef,
-  flexRender,
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
@@ -51,7 +50,7 @@ const Table: FC<TableProps<unknown>> = (props: TableProps<unknown>) => {
     searchLabel = 'Search',
     pageCount,
     page,
-    onClickRow,
+    // onClickRow,
     skeletonCount,
     skeletonHeight,
     isFetching,
@@ -118,15 +117,27 @@ const Table: FC<TableProps<unknown>> = (props: TableProps<unknown>) => {
           {!isFetching ? (
             getRowModel().rows.map((row) => (
               <TableRow key={row.id}>
-                {row.getVisibleCells().map((cell) => (
+                {/* {memoizedColumns.map((column) => (
                   <TableCell
-                    onClick={() => onClickRow?.(cell, row)}
-                    key={cell.id}
+                    onClick={() => onClickRow(row.original[column.id], row)}
+                    key={column.id}
                   >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    {row.original?.[column.id]}
                   </TableCell>
-                ))}
+                ))} */}
               </TableRow>
+
+              // getRowModel().rows.map((row) => (
+              //   <TableRow key={row.id}>
+              //     {row.getVisibleCells().map((cell) => (
+              //       <TableCell
+              //         onClick={() => onClickRow?.(cell, row)}
+              //         key={cell.id}
+              //       >
+              //         {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              //       </TableCell>
+              //     ))}
+              //   </TableRow>
             ))
           ) : (
             <>

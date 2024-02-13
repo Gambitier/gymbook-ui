@@ -7,5 +7,6 @@ export * from './Link';
 export * from './Modal';
 export * from './Paper';
 export * from './Stack';
+export * from './Table';
 export * from './TextField';
 export * from './Typography';
