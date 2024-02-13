@@ -64,7 +64,7 @@ const Table: FC<TableProps<unknown>> = (props: TableProps<unknown>) => {
     [headerComponent],
   );
 
-  const { getRowModel, getAllColumns } = useReactTable({
+  const { getAllColumns } = useReactTable({
     data: memoizedData,
     columns: memoizedColumns,
     getCoreRowModel: getCoreRowModel(),
@@ -115,30 +115,7 @@ const Table: FC<TableProps<unknown>> = (props: TableProps<unknown>) => {
         </TableHead>
         <TableBody>
           {!isFetching ? (
-            getRowModel().rows.map((row) => (
-              <TableRow key={row.id}>
-                {/* {memoizedColumns.map((column) => (
-                  <TableCell
-                    onClick={() => onClickRow(row.original[column.id], row)}
-                    key={column.id}
-                  >
-                    {row.original?.[column.id]}
-                  </TableCell>
-                ))} */}
-              </TableRow>
-
-              // getRowModel().rows.map((row) => (
-              //   <TableRow key={row.id}>
-              //     {row.getVisibleCells().map((cell) => (
-              //       <TableCell
-              //         onClick={() => onClickRow?.(cell, row)}
-              //         key={cell.id}
-              //       >
-              //         {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              //       </TableCell>
-              //     ))}
-              //   </TableRow>
-            ))
+            <>{/* TODO - call onclick function here  */}</>
           ) : (
             <>
               {skeletons.map((skeleton) => (
