@@ -26,7 +26,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { StyledPagination } from './styled';
+import { StyledPagination, StyledTableRow } from './styled';
 
 type TableProps<T> = {
   data: T[];
@@ -51,7 +51,7 @@ const Table: FC<TableProps<unknown>> = (props: TableProps<unknown>) => {
     searchLabel = 'Search',
     pageCount,
     page,
-    // onClickRow,
+    onClickRow,
     skeletonCount,
     skeletonHeight,
     isFetching,
@@ -65,7 +65,7 @@ const Table: FC<TableProps<unknown>> = (props: TableProps<unknown>) => {
     [headerComponent],
   );
 
-  const { getAllColumns, getHeaderGroups } = useReactTable({
+  const { getAllColumns, getHeaderGroups, getRowModel } = useReactTable({
     data: memoizedData,
     columns: memoizedColumns,
     getCoreRowModel: getCoreRowModel(),
@@ -125,11 +125,22 @@ const Table: FC<TableProps<unknown>> = (props: TableProps<unknown>) => {
         )}
         <TableBody>
           {!isFetching ? (
-            <>{/* TODO - call onclick function here  */}</>
+            getRowModel().rows.map((row) => (
+              <StyledTableRow key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <TableCell
+                    onClick={() => onClickRow?.(cell, row)}
+                    key={cell.id}
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </TableCell>
+                ))}
+              </StyledTableRow>
+            ))
           ) : (
             <>
               {skeletons.map((skeleton) => (
-                <TableRow key={String(skeleton)}>
+                <TableRow key={skeleton}>
                   {Array.from({ length: columnCount }, (_, i) => i).map(
                     (elm) => (
                       <TableCell key={elm}>
