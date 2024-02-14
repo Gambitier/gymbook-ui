@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import {
   ColumnDef,
+  flexRender,
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
@@ -64,7 +65,7 @@ const Table: FC<TableProps<unknown>> = (props: TableProps<unknown>) => {
     [headerComponent],
   );
 
-  const { getAllColumns } = useReactTable({
+  const { getAllColumns, getHeaderGroups } = useReactTable({
     data: memoizedData,
     columns: memoizedColumns,
     getCoreRowModel: getCoreRowModel(),
@@ -104,15 +105,24 @@ const Table: FC<TableProps<unknown>> = (props: TableProps<unknown>) => {
         </Grid>
       </Grid>
       <MUITable>
-        <TableHead>
-          <TableRow>
-            {memoizedColumns.map((column) => (
-              <TableCell key={column.id}>
-                <>{column.header}</>
-              </TableCell>
+        {!isFetching && (
+          <TableHead>
+            {getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <TableCell key={header.id}>
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
+                  </TableCell>
+                ))}
+              </TableRow>
             ))}
-          </TableRow>
-        </TableHead>
+          </TableHead>
+        )}
         <TableBody>
           {!isFetching ? (
             <>{/* TODO - call onclick function here  */}</>
