@@ -1,4 +1,5 @@
 import Table from '@/components/Elements/Table/Table';
+import { Box, Button, Typography } from '@mui/material';
 import { ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
 import { dummyData } from './DummyData';
@@ -23,6 +24,14 @@ export const PlanList = () => {
     { accessorKey: 'date_of_birth', header: 'Date of Birth' },
   ];
 
+  const Header = (
+    <Box display="flex" justifyContent="space-between">
+      <Typography variant="h4" alignItems="center">
+        User Table
+      </Typography>
+      <Button>Action Button</Button>
+    </Box>
+  );
   return (
     <div>
       <h2>List of Plans</h2>
@@ -30,7 +39,7 @@ export const PlanList = () => {
         data={currentData}
         columns={ColumnData}
         isFetching={false}
-        headerComponent={<div>Entered Plan Details</div>}
+        headerComponent={Header}
         onClickRow={(_, row) => {
           console.log(row);
         }}
