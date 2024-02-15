@@ -6,7 +6,7 @@ import { dummyData } from './DummyData';
 export const PlanList = () => {
   const data = dummyData;
   const [currentPage, setCurrentPage] = useState<number | undefined>(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 5;
   const totalItems = data.length;
   const pageCount = Math.ceil(totalItems / itemsPerPage);
 
