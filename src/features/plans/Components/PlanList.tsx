@@ -4,16 +4,29 @@ import { ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
 import { dummyData } from './DummyData';
 
+// ... (existing imports)
+
 export const PlanList = () => {
   const data = dummyData;
   const [currentPage, setCurrentPage] = useState<number | undefined>(1);
+  const [searchItem, setSearchItem] = useState<string | undefined>('');
+
   const itemsPerPage = 5;
   const totalItems = data.length;
   const pageCount = Math.ceil(totalItems / itemsPerPage);
 
   const startIndex = ((currentPage ?? 1) - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentData = data.slice(startIndex, endIndex);
+
+  const filteredData = data.filter((item) =>
+    Object.values(item).some(
+      (value) =>
+        typeof value === 'string' &&
+        value.toLowerCase().includes((searchItem ?? '').toLowerCase()),
+    ),
+  );
+
+  const currentData = filteredData.slice(startIndex, endIndex);
 
   const ColumnData: ColumnDef<unknown, unknown>[] = [
     { accessorKey: 'id', header: 'ID' },
@@ -32,6 +45,7 @@ export const PlanList = () => {
       <Button>Action Button</Button>
     </Box>
   );
+
   return (
     <div>
       <h2>List of Plans</h2>
@@ -45,9 +59,7 @@ export const PlanList = () => {
         }}
         pageCount={pageCount}
         page={setCurrentPage}
-        search={(value) => {
-          console.log(value);
-        }}
+        search={setSearchItem}
         skeletonCount={3}
         skeletonHeight={50}
       />
