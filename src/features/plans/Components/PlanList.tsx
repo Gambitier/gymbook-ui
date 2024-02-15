@@ -5,7 +5,14 @@ import { dummyData } from './DummyData';
 
 export const PlanList = () => {
   const data = dummyData;
-  const [_, setCurrentPage] = useState<number | undefined>(1);
+  const [currentPage, setCurrentPage] = useState<number | undefined>(1);
+  const itemsPerPage = 10;
+  const totalItems = data.length;
+  const pageCount = Math.ceil(totalItems / itemsPerPage);
+
+  const startIndex = ((currentPage ?? 1) - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentData = data.slice(startIndex, endIndex);
 
   const ColumnData: ColumnDef<unknown, unknown>[] = [
     { accessorKey: 'id', header: 'ID' },
@@ -15,18 +22,19 @@ export const PlanList = () => {
     { accessorKey: 'phone_number', header: 'Phone Number' },
     { accessorKey: 'date_of_birth', header: 'Date of Birth' },
   ];
+
   return (
     <div>
       <h2>List of Plans</h2>
       <Table
-        data={data}
+        data={currentData}
         columns={ColumnData}
         isFetching={false}
         headerComponent={<div>Entered Plan Details</div>}
         onClickRow={(_, row) => {
           console.log(row);
         }}
-        pageCount={2}
+        pageCount={pageCount}
         page={setCurrentPage}
         search={(value) => {
           console.log(value);
