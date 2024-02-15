@@ -1,9 +1,12 @@
 import Table from '@/components/Elements/Table/Table';
 import { ColumnDef } from '@tanstack/react-table';
+import { useState } from 'react';
 import { dummyData } from './DummyData';
 
 export const PlanList = () => {
   const data = dummyData;
+  const [_, setCurrentPage] = useState<number | undefined>(1);
+
   const ColumnData: ColumnDef<unknown, unknown>[] = [
     { accessorKey: 'id', header: 'ID' },
     { accessorKey: 'first_name', header: 'First Name' },
@@ -24,6 +27,7 @@ export const PlanList = () => {
           console.log(row);
         }}
         pageCount={2}
+        page={setCurrentPage}
         search={(value) => {
           console.log(value);
         }}

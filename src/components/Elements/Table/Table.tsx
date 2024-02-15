@@ -154,7 +154,7 @@ const Table: FC<TableProps<unknown>> = (props: TableProps<unknown>) => {
           )}
         </TableBody>
       </MUITable>
-      {pageCount && (
+      {pageCount && page && (
         <StyledPagination
           count={pageCount}
           page={paginationPage}
