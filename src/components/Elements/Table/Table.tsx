@@ -87,7 +87,7 @@ const Table: FC<TableProps<unknown>> = (props: TableProps<unknown>) => {
     page?.(currentPage === 0 ? 1 : currentPage);
   };
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} elevation={0}>
       <Box padding="1rem">
         {memoisedHeaderComponent && <Box>{memoisedHeaderComponent}</Box>}
       </Box>

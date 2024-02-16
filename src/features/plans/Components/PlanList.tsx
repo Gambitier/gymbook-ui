@@ -4,8 +4,6 @@ import { ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
 import { dummyData } from './DummyData';
 
-// ... (existing imports)
-
 export const PlanList = () => {
   const data = dummyData;
   const [currentPage, setCurrentPage] = useState<number | undefined>(1);
@@ -48,7 +46,6 @@ export const PlanList = () => {
 
   return (
     <div>
-      <h2>List of Plans</h2>
       <Table
         data={currentData}
         columns={ColumnData}
