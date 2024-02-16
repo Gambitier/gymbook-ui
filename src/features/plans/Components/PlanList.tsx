@@ -1,13 +1,25 @@
 import Table from '@/components/Elements/Table/Table';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import { ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
 import { dummyData } from './DummyData';
-
+import { usePlan } from '../api/getPlan';
 export const PlanList = () => {
+  const apiData = usePlan();
+
   const data = dummyData;
   const [currentPage, setCurrentPage] = useState<number | undefined>(1);
   const [searchItem, setSearchItem] = useState<string | undefined>('');
+
+  if (apiData.isLoading) {
+    return (
+      <>
+        <CircularProgress size="lg" />
+      </>
+    );
+  }
+
+  if (!apiData.data) return null;
 
   const itemsPerPage = 5;
 
