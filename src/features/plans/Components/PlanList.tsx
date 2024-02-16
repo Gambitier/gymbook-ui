@@ -10,11 +10,6 @@ export const PlanList = () => {
   const [searchItem, setSearchItem] = useState<string | undefined>('');
 
   const itemsPerPage = 5;
-  const totalItems = data.length;
-  const pageCount = Math.ceil(totalItems / itemsPerPage);
-
-  const startIndex = ((currentPage ?? 1) - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
 
   const filteredData = data.filter((item) =>
     Object.values(item).some(
@@ -23,6 +18,12 @@ export const PlanList = () => {
         value.toLowerCase().includes((searchItem ?? '').toLowerCase()),
     ),
   );
+
+  const totalItems = filteredData.length;
+  const pageCount = Math.ceil(totalItems / itemsPerPage);
+
+  const startIndex = ((currentPage ?? 1) - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
 
   const currentData = filteredData.slice(startIndex, endIndex);
 
