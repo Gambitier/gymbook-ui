@@ -2,16 +2,15 @@ import Table from '@/components/Elements/Table/Table';
 import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import { ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
-import { dummyData } from './DummyData';
 import { usePlan } from '../api/getPlan';
-export const PlanList = () => {
-  const apiData = usePlan();
 
-  const data = dummyData;
+export const PlanList = () => {
+  const getPlansQuery = usePlan();
+
   const [currentPage, setCurrentPage] = useState<number | undefined>(1);
   const [searchItem, setSearchItem] = useState<string | undefined>('');
 
-  if (apiData.isLoading) {
+  if (getPlansQuery.isLoading) {
     return (
       <>
         <CircularProgress size="lg" />
@@ -19,7 +18,8 @@ export const PlanList = () => {
     );
   }
 
-  if (!apiData.data) return null;
+  const data = getPlansQuery.data;
+  if (!data) return null;
 
   const itemsPerPage = 5;
 
