@@ -1,12 +1,12 @@
 import { APIResponse } from '@/types/api';
 
-type GetPlanResponse = {
+export type GetPlanResponse = {
   id: string;
   name: string;
   price: number;
   durationInMoths: number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   deleted: null;
   gymId: string;
 };
