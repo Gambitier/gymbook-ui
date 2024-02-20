@@ -19,7 +19,7 @@ export const PlanList = () => {
   }
 
   const data = getPlansQuery.data;
-  if (!data) return null;
+  if (!Array.isArray(data)) return null;
 
   const itemsPerPage = 5;
 
