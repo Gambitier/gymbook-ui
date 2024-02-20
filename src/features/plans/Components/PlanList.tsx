@@ -41,11 +41,9 @@ export const PlanList = () => {
 
   const ColumnData: ColumnDef<unknown, unknown>[] = [
     { accessorKey: 'id', header: 'ID' },
-    { accessorKey: 'first_name', header: 'First Name' },
-    { accessorKey: 'last_name', header: 'Last Name' },
-    { accessorKey: 'email', header: 'Email' },
-    { accessorKey: 'phone_number', header: 'Phone Number' },
-    { accessorKey: 'date_of_birth', header: 'Date of Birth' },
+    { accessorKey: 'name', header: ' Name' },
+    { accessorKey: 'price', header: 'Price' },
+    { accessorKey: 'durationInMoths', header: 'Duration In Months' },
   ];
 
   const Header = (
