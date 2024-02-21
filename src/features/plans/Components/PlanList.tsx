@@ -19,11 +19,11 @@ export const PlanList = () => {
   }
 
   const data = getPlansQuery.data;
-  if (!Array.isArray(data)) return null;
+  if (!data) return null;
 
   const itemsPerPage = 5;
 
-  const filteredData = data.filter((item) =>
+  const filteredData = Object.values(data).filter((item) =>
     Object.values(item).some(
       (value) =>
         typeof value === 'string' &&

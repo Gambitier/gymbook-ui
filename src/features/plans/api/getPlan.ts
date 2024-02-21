@@ -9,21 +9,24 @@ export const getPlan = (gymId: string): Promise<GetPlanResponseDTO> => {
 const planResponse: GetPlanResponseDTO = {
   status: 'Suceess',
   message: '',
-  data: {
-    id: '13425465gdfsaf456',
-    name: 'Plan Name',
-    price: 100,
-    durationInMoths: 12,
-    createdAt: '2022-02-20T12:00:00Z',
-    updatedAt: '2022-02-20T12:00:00Z',
-    deleted: null,
-    gymId: 'lhresuhhsoi34839879',
-  },
+  data: [
+    {
+      id: '13425465gdfsaf456',
+      name: 'Plan Name',
+      price: 100,
+      durationInMoths: 12,
+      createdAt: '2022-02-20T12:00:00Z',
+      updatedAt: '2022-02-20T12:00:00Z',
+      deleted: null,
+      gymId: 'lhresuhhsoi34839879',
+    },
+  ],
 };
 
-export const usePlan = () => {
-  console.log(planResponse);
+console.log(Object.values(planResponse));
 
+export const usePlan = () => {
+  console.log('Data: ', planResponse);
   return useQuery({
     queryKey: ['plans'],
     queryFn: () => getPlan('b6ef37ab-1095-44e2-8b73-eaa1555d4df5'),

@@ -11,4 +11,4 @@ export type GetPlanResponse = {
   gymId: string;
 };
 
-export type GetPlanResponseDTO = APIResponse<GetPlanResponse>;
+export type GetPlanResponseDTO = APIResponse<GetPlanResponse[]>;
