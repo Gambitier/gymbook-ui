@@ -1,5 +1,6 @@
 export * from './Box';
 export * from './Button';
+export * from './ConfirmationDialogue';
 export * from './Container';
 export * from './CssBaseline';
 export * from './Drawer';
