@@ -3,6 +3,7 @@ import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import { ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
 import { usePlan } from '../api/getPlan';
+import { DeletePlan } from './DeletePlan';
 
 export const PlanList = () => {
   const getPlansQuery = usePlan();
@@ -45,6 +46,13 @@ export const PlanList = () => {
     { accessorKey: 'name', header: ' Name' },
     { accessorKey: 'price', header: 'Price' },
     { accessorKey: 'durationInMoths', header: 'Duration In Months' },
+    {
+      accessorKey: 'action',
+      header: 'Action',
+      cell() {
+        return <DeletePlan id="id" />;
+      },
+    },
   ];
 
   const Header = (
