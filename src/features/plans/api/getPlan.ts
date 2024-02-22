@@ -23,10 +23,8 @@ const planResponse: GetPlanResponseDTO = {
   ],
 };
 
-console.log(Object.values(planResponse));
-
 export const usePlan = () => {
-  console.log('Data: ', planResponse);
+  console.log(planResponse);
   return useQuery({
     queryKey: ['plans'],
     queryFn: () => getPlan('b6ef37ab-1095-44e2-8b73-eaa1555d4df5'),
