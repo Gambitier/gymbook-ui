@@ -48,7 +48,7 @@ export const PlanList = () => {
     { accessorKey: 'price', header: 'Price' },
     { accessorKey: 'durationInMoths', header: 'Duration In Months' },
     {
-      accessorKey: 'action',
+      accessorKey: '',
       header: 'Action',
       cell: (props: CellContext<GetPlanResponse, unknown>) => {
         return (
