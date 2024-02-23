@@ -1,8 +1,9 @@
 import Table from '@/components/Elements/Table/Table';
 import { Box, Button, CircularProgress, Typography } from '@mui/material';
-import { ColumnDef } from '@tanstack/react-table';
+import { CellContext, ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
 import { usePlan } from '../api/getPlan';
+import { GetPlanResponse } from '../types';
 import { DeletePlan } from './DeletePlan';
 
 export const PlanList = () => {
@@ -41,16 +42,21 @@ export const PlanList = () => {
   const endIndex = startIndex + itemsPerPage;
   const paginatedData = filteredData.slice(startIndex, endIndex);
 
-  const columnDef: ColumnDef<unknown, unknown>[] = [
+  const columnDef: ColumnDef<GetPlanResponse, unknown>[] = [
     { accessorKey: 'id', header: 'ID' },
     { accessorKey: 'name', header: ' Name' },
     { accessorKey: 'price', header: 'Price' },
     { accessorKey: 'durationInMoths', header: 'Duration In Months' },
     {
-      accessorKey: 'action',
+      accessorKey: '',
       header: 'Action',
-      cell() {
-        return <DeletePlan id="id" />;
+      cell: (props: CellContext<GetPlanResponse, unknown>) => {
+        return (
+          <DeletePlan
+            planId={props.row.original.id}
+            gymId={props.row.original.gymId}
+          />
+        );
       },
     },
   ];

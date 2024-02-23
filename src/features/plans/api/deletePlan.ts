@@ -1,17 +1,15 @@
 import { axios } from '@/lib/axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-export const deletePlan = (planId: string) => {
-  return axios.delete(
-    `/v1/gyms/b6ef37ab-1095-44e2-8b73-eaa1555d4df5/plans/${planId}`,
-  );
+export const deletePlan = (gymId: string, planId: string) => {
+  return axios.delete(`/v1/gyms/${gymId}/plans/${planId}`);
 };
 
-export const useDeletePlan = () => {
+export const useDeletePlan = (gymId: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (planId: string) => deletePlan(planId),
+    mutationFn: (planId: string) => deletePlan(gymId, planId),
     onSuccess: () => {
       console.log('deleted successfully');
     },
