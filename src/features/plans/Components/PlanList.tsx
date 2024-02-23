@@ -25,6 +25,7 @@ export const PlanList = () => {
 
   const itemsPerPage = 5;
 
+  // search functionality
   const filteredData = data.data.filter((item) =>
     Object.values(item).some(
       (value) =>
@@ -33,15 +34,14 @@ export const PlanList = () => {
     ),
   );
 
+  // pagination functionality
   const totalItems = filteredData.length;
   const pageCount = Math.ceil(totalItems / itemsPerPage);
-
   const startIndex = ((currentPage ?? 1) - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
+  const paginatedData = filteredData.slice(startIndex, endIndex);
 
-  const currentData = filteredData.slice(startIndex, endIndex);
-
-  const ColumnData: ColumnDef<unknown, unknown>[] = [
+  const columnDef: ColumnDef<unknown, unknown>[] = [
     { accessorKey: 'id', header: 'ID' },
     { accessorKey: 'name', header: ' Name' },
     { accessorKey: 'price', header: 'Price' },
@@ -67,8 +67,8 @@ export const PlanList = () => {
   return (
     <div>
       <Table
-        data={currentData}
-        columns={ColumnData}
+        data={paginatedData}
+        columns={columnDef}
         isFetching={false}
         headerComponent={Header}
         onClickRow={(_, row) => {
