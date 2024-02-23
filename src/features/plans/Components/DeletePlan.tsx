@@ -4,12 +4,12 @@ import { Delete } from '@mui/icons-material';
 import { useDeletePlan } from '../api/deletePlan';
 
 type DeletePlanProps = {
-  id: string;
+  planId: string;
+  gymId: string;
 };
-export const DeletePlan = (props: DeletePlanProps) => {
-  const { id } = props;
-  const deletePlanMutation = useDeletePlan();
-  const handleDeletePlan = (planId: string) => {
+export const DeletePlan = ({ gymId, planId }: DeletePlanProps) => {
+  const deletePlanMutation = useDeletePlan(gymId);
+  const handleDeletePlan = () => {
     deletePlanMutation.mutate(planId);
   };
   return (
@@ -23,7 +23,7 @@ export const DeletePlan = (props: DeletePlanProps) => {
           </Button>
         }
         confirmButton={
-          <Button onClick={() => handleDeletePlan(id)}>Delete Plan</Button>
+          <Button onClick={() => handleDeletePlan()}>Delete Plan</Button>
         }
       />
     </>
