@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Box,
   Grid,
@@ -30,10 +31,10 @@ import { StyledPagination, StyledTableRow } from './styled';
 
 type TableProps<T> = {
   data: T[];
-  columns: ColumnDef<unknown, unknown>[];
+  columns: ColumnDef<any, any>[];
   isFetching: boolean;
   headerComponent: JSX.Element;
-  onClickRow: (cell: unknown, row: unknown) => void;
+  onClickRow: (cell: any, row: any) => void;
   pageCount: number;
   page?: Dispatch<SetStateAction<number | undefined>>;
   search?: Dispatch<SetStateAction<string | undefined>>;
@@ -42,7 +43,7 @@ type TableProps<T> = {
   skeletonHeight?: number;
 };
 
-const Table: FC<TableProps<unknown>> = (props: TableProps<unknown>) => {
+const Table: FC<TableProps<any>> = (props: TableProps<any>) => {
   const {
     headerComponent,
     columns,
