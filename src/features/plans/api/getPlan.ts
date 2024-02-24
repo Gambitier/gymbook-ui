@@ -27,6 +27,6 @@ export const usePlan = () => {
   console.log(planResponse);
   return useQuery({
     queryKey: ['plans'],
-    queryFn: () => getPlan('e0f7c8b3-c2be-4c0b-bf47-0d7894309508'),
+    queryFn: () => getPlan('b6ef37ab-1095-44e2-8b73-eaa1555d4df5'),
   });
 };
