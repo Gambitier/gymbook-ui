@@ -1,8 +1,5 @@
 import { Button, Stack, TextField } from '@/components/Elements';
-import { FormModal } from '@/components/Form/FormModal';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Grid } from '@mui/material';
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 type UpdatePlanProps = {
@@ -96,7 +93,6 @@ export const UpdatePlan = (props: UpdatePlanProps) => {
       variant="contained"
       disabled={!isDirty || !isValid}
       form={formId}
-      //   isLoading={createPlanMutation.isPending}
     >
       Submit
     </Button>
@@ -105,22 +101,22 @@ export const UpdatePlan = (props: UpdatePlanProps) => {
   return { SubmitButton, Form };
 };
 
-export const CreatePlan: React.FC = () => {
-  const { SubmitButton, Form, isSuccess } = UpdatePlan();
-  const TriggerButton = (
-    <Grid container justifyContent="flex-end">
-      <Button variant="contained">Add New Plan</Button>
-    </Grid>
-  );
+// export const UpdatePlan: React.FC = () => {
+//   const { SubmitButton, Form, isSuccess } = UpdatePlan();
+//   const TriggerButton = (
+//     <Grid container justifyContent="flex-end">
+//       <Button variant="contained">Add New Plan</Button>
+//     </Grid>
+//   );
 
-  return (
-    <FormModal
-      submitButton={SubmitButton}
-      triggerButton={TriggerButton}
-      title="Add Plan"
-      isDone={isSuccess}
-    >
-      {Form}
-    </FormModal>
-  );
-};
+//   return (
+//     <FormModal
+//       submitButton={SubmitButton}
+//       triggerButton={TriggerButton}
+//       title="Add Plan"
+//       isDone={isSuccess}
+//     >
+//       {Form}
+//     </FormModal>
+//   );
+// };
