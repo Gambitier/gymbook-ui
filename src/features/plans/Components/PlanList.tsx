@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { usePlan } from '../api/getPlan';
 import { GetPlanResponse } from '../types';
 import { DeletePlan } from './DeletePlan';
+import { UpdatePlan } from './UpdatePlan';
 
 export const PlanList = () => {
   const getPlansQuery = usePlan();
@@ -52,10 +53,13 @@ export const PlanList = () => {
       header: 'Action',
       cell: (props: CellContext<GetPlanResponse, unknown>) => {
         return (
-          <DeletePlan
-            planId={props.row.original.id}
-            gymId={props.row.original.gymId}
-          />
+          <>
+            <DeletePlan
+              planId={props.row.original.id}
+              gymId={props.row.original.gymId}
+            />
+            <UpdatePlan planId={props.row.original.id} />
+          </>
         );
       },
     },

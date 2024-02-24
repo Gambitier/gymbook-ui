@@ -1,10 +1,12 @@
 import { Button, Stack, TextField } from '@/components/Elements';
+import { FormModal } from '@/components/Form/FormModal';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Grid } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { useUpdatePlan } from '../api/updatePlan';
 type UpdatePlanProps = {
   planId: string;
-  gymId: string;
 };
 
 type UpdatePlanFormValues = {
@@ -36,14 +38,18 @@ const useFormWithValidation = () => {
   return form;
 };
 
-export const UpdatePlan = (props: UpdatePlanProps) => {
-  const { planId, gymId } = props;
+export const UpdatePlanForm = (props: UpdatePlanProps) => {
+  const { planId } = props;
   const form = useFormWithValidation();
   const { register, handleSubmit, formState, reset } = form;
   const { errors, isDirty, isValid } = formState;
-  const formId = 'create-plan';
+  const formId = 'update-plan';
+
+  const updateplanMutation = useUpdatePlan();
 
   const onSubmit = async (data: UpdatePlanFormValues) => {
+    const gymId = 'b6ef37ab-1095-44e2-8b73-eaa1555d4df5';
+    await updateplanMutation.mutateAsync({ gymId, planId, data });
     console.log(data, planId, gymId);
 
     reset();
@@ -93,30 +99,32 @@ export const UpdatePlan = (props: UpdatePlanProps) => {
       variant="contained"
       disabled={!isDirty || !isValid}
       form={formId}
+      isLoading={updateplanMutation.isPending}
     >
-      Submit
+      Update Plan
     </Button>
   );
+  const isSuccess = updateplanMutation.isSuccess;
 
-  return { SubmitButton, Form };
+  return { SubmitButton, Form, isSuccess };
 };
 
-// export const UpdatePlan: React.FC = () => {
-//   const { SubmitButton, Form, isSuccess } = UpdatePlan();
-//   const TriggerButton = (
-//     <Grid container justifyContent="flex-end">
-//       <Button variant="contained">Add New Plan</Button>
-//     </Grid>
-//   );
+export const UpdatePlan: React.FC<{ planId: string }> = ({ planId }) => {
+  const { SubmitButton, Form, isSuccess } = UpdatePlanForm({ planId });
+  const TriggerButton = (
+    <Grid container justifyContent="flex-end">
+      <Button variant="contained">Update Plan</Button>
+    </Grid>
+  );
 
-//   return (
-//     <FormModal
-//       submitButton={SubmitButton}
-//       triggerButton={TriggerButton}
-//       title="Add Plan"
-//       isDone={isSuccess}
-//     >
-//       {Form}
-//     </FormModal>
-//   );
-// };
+  return (
+    <FormModal
+      submitButton={SubmitButton}
+      triggerButton={TriggerButton}
+      title="Update Plan"
+      isDone={isSuccess}
+    >
+      {Form}
+    </FormModal>
+  );
+};
