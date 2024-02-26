@@ -1,5 +1,5 @@
 import Table from '@/components/Elements/Table/Table';
-import { Box, Button, CircularProgress, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Grid, Typography } from '@mui/material';
 import { CellContext, ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
 import { usePlan } from '../api/getPlan';
@@ -53,13 +53,17 @@ export const PlanList = () => {
       header: 'Action',
       cell: (props: CellContext<GetPlanResponse, unknown>) => {
         return (
-          <>
-            <DeletePlan
-              planId={props.row.original.id}
-              gymId={props.row.original.gymId}
-            />
-            <UpdatePlan planId={props.row.original.id} />
-          </>
+          <Grid container>
+            <Grid item xs={6}>
+              <DeletePlan
+                planId={props.row.original.id}
+                gymId={props.row.original.gymId}
+              />{' '}
+            </Grid>
+            <Grid item xs={4}>
+              <UpdatePlan planId={props.row.original.id} />
+            </Grid>
+          </Grid>
         );
       },
     },

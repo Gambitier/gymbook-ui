@@ -1,6 +1,6 @@
 import { CreatePlanResponseDTO } from '@/features/plans';
 import { axios } from '@/lib/axios';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 type CreatePlanRequestDTO = {
   name: string;
@@ -16,10 +16,19 @@ const createPlan = (
 };
 
 export const useCreatePlan = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: (input: { gymId: string; data: CreatePlanRequestDTO }) => {
       const { gymId, data } = input;
       return createPlan(gymId, data);
+    },
+    onSettled: async (_, error) => {
+      if (error) {
+        console.log(error);
+      } else {
+        await queryClient.invalidateQueries({ queryKey: ['plans'] });
+      }
     },
   });
 };
