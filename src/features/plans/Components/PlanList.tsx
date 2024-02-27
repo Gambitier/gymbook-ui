@@ -2,13 +2,13 @@ import Table from '@/components/Elements/Table/Table';
 import { Box, Button, CircularProgress, Grid, Typography } from '@mui/material';
 import { CellContext, ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
-import { usePlan } from '../api/getPlan';
+import { usePlans } from '../api/getPlans';
 import { GetPlanResponse } from '../types';
 import { DeletePlan } from './DeletePlan';
 import { UpdatePlan } from './UpdatePlan';
 
 export const PlanList = () => {
-  const getPlansQuery = usePlan();
+  const getPlansQuery = usePlans();
 
   const [currentPage, setCurrentPage] = useState<number | undefined>(1);
   const [searchItem, setSearchItem] = useState<string | undefined>('');

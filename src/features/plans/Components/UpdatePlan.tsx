@@ -5,6 +5,7 @@ import { Grid } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { useUpdatePlan } from '../api/updatePlan';
+import { usePlan } from '../api/getPlan';
 type UpdatePlanProps = {
   planId: string;
 };
@@ -45,6 +46,7 @@ export const UpdatePlanForm = (props: UpdatePlanProps) => {
   const { errors, isDirty, isValid } = formState;
   const formId = 'update-plan';
 
+  const planQuery = usePlan({ planId });
   const updateplanMutation = useUpdatePlan();
 
   const onSubmit = async (data: UpdatePlanFormValues) => {
@@ -58,6 +60,7 @@ export const UpdatePlanForm = (props: UpdatePlanProps) => {
         <TextField
           label="Plan Name"
           variant="outlined"
+          defaultValue={planQuery.data?.data}
           {...register('name')}
           error={!!errors.name}
           helperText={errors.name ? errors.name.message : ''}
