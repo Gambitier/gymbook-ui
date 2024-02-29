@@ -102,7 +102,10 @@ type AppDrawerProps = {
 export default function AppDrawer({ children }: AppDrawerProps) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const navigation: SideNavigationItem[] = [{ name: 'Plan', to: 'plans' }];
+  const navigation: SideNavigationItem[] = [
+    { name: 'Plan', to: 'plans' },
+    { name: 'Create Gym', to: 'gym' },
+  ];
 
   const handleDrawerOpen = () => {
     setOpen(true);

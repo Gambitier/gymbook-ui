@@ -8,6 +8,7 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { useCreateGym } from '../api/createGym';
 
 type CreateGymProps = {
   name: string;
@@ -33,19 +34,18 @@ export const CreateGym = () => {
   const { register, handleSubmit, formState, reset } = form;
   const { errors } = formState;
   const formId = 'create-gym';
-  const onSubmit = (data: CreateGymProps) => {
-    console.log(data);
+  const createGymMutation = useCreateGym();
 
+  const onSubmit = async (data: CreateGymProps) => {
+    console.log(data);
+    await createGymMutation.mutateAsync({ data });
     reset();
   };
   return (
     <form id={formId} onSubmit={handleSubmit(onSubmit)}>
       <Container component="form" maxWidth="sm">
-        <Typography component="h1" variant="h3" align="center">
-          Create Gym
-        </Typography>
         <Paper
-          elevation={12}
+          elevation={1}
           sx={{
             mt: 4,
             display: 'flex',
@@ -54,17 +54,24 @@ export const CreateGym = () => {
             padding: 2,
           }}
         >
-          <Typography component="h1" variant="h4">
-            Add Gym
+          <Typography component="h1" variant="h4" sx={{ p: 2 }}>
+            Enter Gym Name
           </Typography>
           <TextField
             label="Gym Name"
-            variant="outlined"
+            variant="standard"
             {...register('name')}
+            fullWidth
             error={!!errors.name}
             helperText={errors.name ? errors.name.message : ''}
           />
-          <Button variant="contained" sx={{ mt: 4 }} fullWidth type="submit">
+          <Button
+            variant="contained"
+            sx={{ mt: 4 }}
+            form={formId}
+            fullWidth
+            type="submit"
+          >
             Submit
           </Button>
         </Paper>
