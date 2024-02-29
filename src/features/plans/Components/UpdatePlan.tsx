@@ -2,10 +2,11 @@ import { Button, Stack, TextField } from '@/components/Elements';
 import { FormModal } from '@/components/Form/FormModal';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Grid } from '@mui/material';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { useUpdatePlan } from '../api/updatePlan';
 import { usePlan } from '../api/getPlan';
+import { useUpdatePlan } from '../api/updatePlan';
 type UpdatePlanProps = {
   planId: string;
 };
@@ -47,6 +48,17 @@ export const UpdatePlanForm = (props: UpdatePlanProps) => {
   const formId = 'update-plan';
 
   const planQuery = usePlan({ planId });
+
+  useEffect(() => {
+    if (planQuery.data) {
+      reset({
+        name: planQuery.data.data.name,
+        price: planQuery.data.data.price,
+        durationInMoths: planQuery.data.data.durationInMoths,
+      });
+    }
+  }, [planQuery.data, reset]);
+
   const updateplanMutation = useUpdatePlan();
 
   const onSubmit = async (data: UpdatePlanFormValues) => {
@@ -60,7 +72,6 @@ export const UpdatePlanForm = (props: UpdatePlanProps) => {
         <TextField
           label="Plan Name"
           variant="outlined"
-          defaultValue={planQuery.data?.data}
           {...register('name')}
           error={!!errors.name}
           helperText={errors.name ? errors.name.message : ''}

@@ -58,7 +58,7 @@ export const PlanList = () => {
               <DeletePlan
                 planId={props.row.original.id}
                 gymId={props.row.original.gymId}
-              />{' '}
+              />
             </Grid>
             <Grid item xs={4}>
               <UpdatePlan planId={props.row.original.id} />
