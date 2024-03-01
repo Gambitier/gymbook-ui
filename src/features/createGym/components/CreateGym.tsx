@@ -1,11 +1,7 @@
-import {
-  Button,
-  Container,
-  Paper,
-  TextField,
-  Typography,
-} from '@/components/Elements';
+import { Button, TextField } from '@/components/Elements';
+import { FormModal } from '@/components/Form/FormModal';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Grid, Stack } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { useCreateGym } from '../api/createGym';
@@ -29,10 +25,10 @@ const useFormWithValidation = () => {
   return form;
 };
 
-export const CreateGym = () => {
+const CreateGymForm = () => {
   const form = useFormWithValidation();
   const { register, handleSubmit, formState, reset } = form;
-  const { errors } = formState;
+  const { errors, isDirty, isValid } = formState;
   const formId = 'create-gym';
   const createGymMutation = useCreateGym();
 
@@ -41,41 +37,50 @@ export const CreateGym = () => {
     await createGymMutation.mutateAsync({ data });
     reset();
   };
-  return (
+  const Form = (
     <form id={formId} onSubmit={handleSubmit(onSubmit)}>
-      <Container component="form" maxWidth="sm">
-        <Paper
-          elevation={1}
-          sx={{
-            mt: 4,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            padding: 2,
-          }}
-        >
-          <Typography component="h1" variant="h4" sx={{ p: 2 }}>
-            Enter Gym Name
-          </Typography>
-          <TextField
-            label="Gym Name"
-            variant="standard"
-            {...register('name')}
-            fullWidth
-            error={!!errors.name}
-            helperText={errors.name ? errors.name.message : ''}
-          />
-          <Button
-            variant="contained"
-            sx={{ mt: 4 }}
-            form={formId}
-            fullWidth
-            type="submit"
-          >
-            Submit
-          </Button>
-        </Paper>
-      </Container>
+      <Stack spacing={2}>
+        <TextField
+          label="Gym Name"
+          variant="standard"
+          {...register('name')}
+          fullWidth
+          error={!!errors.name}
+          helperText={errors.name ? errors.name.message : ''}
+        />
+      </Stack>
     </form>
+  );
+  const SubmitButton = (
+    <Button
+      type="submit"
+      variant="contained"
+      disabled={!isDirty || !isValid || createGymMutation.isPending}
+      form={formId}
+      isLoading={createGymMutation.isPending}
+    >
+      Submit
+    </Button>
+  );
+  const isSuccess = createGymMutation.isSuccess;
+  return { SubmitButton, Form, isSuccess };
+};
+export const CreateGym = () => {
+  const { SubmitButton, Form, isSuccess } = CreateGymForm();
+  const TriggerButton = (
+    <Grid container justifyContent="flex-end">
+      <Button variant="contained">Create New Gym</Button>
+    </Grid>
+  );
+
+  return (
+    <FormModal
+      submitButton={SubmitButton}
+      triggerButton={TriggerButton}
+      title="Enter Gym Name"
+      isDone={isSuccess}
+    >
+      {Form}
+    </FormModal>
   );
 };
