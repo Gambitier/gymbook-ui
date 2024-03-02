@@ -1,10 +1,10 @@
 import { Box, Button, Typography } from '@/components/Elements';
 import Table from '@/components/Elements/Table/Table';
 import { GetGymResponseDTO } from '@/features/createGym';
-import { useAllGym } from '../api/getAllGym';
+import { CircularProgress } from '@mui/material';
 import { ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
-import { CircularProgress } from '@mui/material';
+import { useAllGym } from '../api/getAllGym';
 
 export const GymList = () => {
   const getGymQuery = useAllGym();
@@ -53,6 +53,7 @@ export const GymList = () => {
       <Button>Action Button</Button>
     </Box>
   );
+
   return (
     <div>
       <Table

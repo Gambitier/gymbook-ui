@@ -14,10 +14,10 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import { CSSObject, Theme, styled, useTheme } from '@mui/material/styles';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { SelectGym } from '../../../features/createGym/components/SelectGym';
 
 const drawerWidth = 240;
 
@@ -132,9 +132,7 @@ export default function AppDrawer({ children }: AppDrawerProps) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Gym Book
-          </Typography>
+          <SelectGym />
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
