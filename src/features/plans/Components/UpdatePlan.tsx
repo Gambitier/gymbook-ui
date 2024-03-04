@@ -62,7 +62,8 @@ export const UpdatePlanForm = (props: UpdatePlanProps) => {
   const updateplanMutation = useUpdatePlan();
 
   const onSubmit = async (data: UpdatePlanFormValues) => {
-    const gymId = 'b6ef37ab-1095-44e2-8b73-eaa1555d4df5';
+    const getGymId = localStorage.getItem('CurrentGymId');
+    const gymId = getGymId || '';
     await updateplanMutation.mutateAsync({ gymId, planId, data });
     reset();
   };

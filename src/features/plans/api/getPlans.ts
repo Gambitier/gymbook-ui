@@ -25,8 +25,11 @@ const planResponse: GetPlanResponseDTO = {
 
 export const usePlans = () => {
   console.log(planResponse);
+
+  const getGymId = localStorage.getItem('CurrentGymId');
+  const setGymId = getGymId || '';
   return useQuery({
     queryKey: ['plans'],
-    queryFn: () => getPlans('b6ef37ab-1095-44e2-8b73-eaa1555d4df5'),
+    queryFn: () => getPlans(setGymId),
   });
 };

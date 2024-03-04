@@ -1,16 +1,40 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material';
 import { useState } from 'react';
 import { useAllGym } from '../api/getAllGym';
+import { Button } from '@/components/Elements';
 
 export const SelectGym = () => {
   const getGymQuery = useAllGym();
   const [inputValue, setInputValue] = useState<string | undefined>('');
+  const [selectGymId, setSelectGymId] = useState<string | undefined>('');
 
   const data = getGymQuery.data;
   if (!data) return null;
 
   const gymNames = data.data.map((gym) => gym.name);
 
+  const handleSelectChange = (e: SelectChangeEvent) => {
+    const selectedGymName = e.target.value;
+    const selectedGym = data.data.find((gym) => gym.name === selectedGymName);
+
+    if (selectedGym) {
+      setSelectGymId(selectedGym.id);
+    }
+
+    setInputValue(selectedGymName);
+  };
+
+  const handleButtonClick = () => {
+    if (selectGymId) {
+      localStorage.setItem('CurrentGymId', selectGymId);
+    }
+  };
   return (
     <div>
       <FormControl variant="standard" style={{ margin: '20px', width: '9rem' }}>
@@ -22,7 +46,7 @@ export const SelectGym = () => {
           id="gym-select"
           value={inputValue}
           fullWidth
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={(e: SelectChangeEvent<string>) => handleSelectChange(e)}
           label="Select Gym"
           style={{ color: 'inherit' }}
           MenuProps={{ PaperProps: { style: { maxHeight: '10rem' } } }}
@@ -35,6 +59,9 @@ export const SelectGym = () => {
           ))}
         </Select>
       </FormControl>
+      <Button variant="text" color="inherit" onClick={handleButtonClick}>
+        Set Current Gym ID
+      </Button>
     </div>
   );
 };

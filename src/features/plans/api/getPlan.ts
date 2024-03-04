@@ -16,9 +16,11 @@ type UsePlanOptions = {
   planId: string;
 };
 export const usePlan = ({ planId }: UsePlanOptions) => {
+  const getGymId = localStorage.getItem('CurrentGymId');
+  const setGymId = getGymId || '';
+
   return useQuery({
     queryKey: ['plan', planId],
-    queryFn: () =>
-      getPlan({ gymId: 'b6ef37ab-1095-44e2-8b73-eaa1555d4df5', planId }),
+    queryFn: () => getPlan({ gymId: setGymId, planId }),
   });
 };
