@@ -1,4 +1,5 @@
 import { Button } from '@/components/Elements';
+import storage from '@/utils/storage';
 import {
   FormControl,
   InputLabel,
@@ -12,7 +13,7 @@ import { useAllGym } from '../api/getAllGym';
 export const SelectGym = () => {
   const getGymQuery = useAllGym();
   const [inputValue, setInputValue] = useState<string | undefined>('');
-  const [selectGymId, setSelectGymId] = useState<string | undefined>('');
+  const [currentGymId, setCurrentGymId] = useState<string | undefined>('');
 
   const data = getGymQuery.data;
   if (!data) return null;
@@ -24,16 +25,15 @@ export const SelectGym = () => {
     const selectedGym = data.data.find((gym) => gym.name === selectedGymName);
 
     if (selectedGym) {
-      setSelectGymId(selectedGym.id);
+      setCurrentGymId(selectedGym.id);
     }
 
     setInputValue(selectedGymName);
   };
 
   const handleButtonClick = () => {
-    if (selectGymId) {
-      localStorage.setItem('CurrentGymId', selectGymId);
-      window.location.reload();
+    if (currentGymId) {
+      storage.setCurrentGymId(currentGymId);
     }
   };
   return (
