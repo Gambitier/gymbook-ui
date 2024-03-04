@@ -1,3 +1,4 @@
+import { queryClient } from '@/lib/react-query';
 import {
   MutationFunction,
   QueryFunction,
@@ -5,7 +6,6 @@ import {
   UseMutationOptions,
   useMutation,
   useQuery,
-  useQueryClient,
 } from '@tanstack/react-query';
 import React from 'react';
 
@@ -39,11 +39,11 @@ export function configureAuth<
       'mutationFn'
     >,
   ) => {
-    const queryClient = useQueryClient();
+    // const queryClient = useQueryClient();
 
     const setUser = React.useCallback(
       (data: User) => queryClient.setQueryData(userKey, data),
-      [queryClient],
+      [],
     );
 
     return useMutation({
@@ -62,11 +62,11 @@ export function configureAuth<
       'mutationFn'
     >,
   ) => {
-    const queryClient = useQueryClient();
+    // const queryClient = useQueryClient();
 
     const setUser = React.useCallback(
       (data: User) => queryClient.setQueryData(userKey, data),
-      [queryClient],
+      [],
     );
 
     return useMutation({
@@ -80,11 +80,11 @@ export function configureAuth<
   };
 
   const useLogout = (options?: UseMutationOptions<unknown, Error, unknown>) => {
-    const queryClient = useQueryClient();
+    // const queryClient = useQueryClient();
 
     const setUser = React.useCallback(
       (data: User | null) => queryClient.setQueryData(userKey, data),
-      [queryClient],
+      [],
     );
 
     return useMutation({

@@ -1,9 +1,8 @@
 import { AppRoutes } from '@/routes';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';
-
-const queryClient = new QueryClient();
+import { queryClient } from './lib/react-query';
 
 const App = () => {
   return (
