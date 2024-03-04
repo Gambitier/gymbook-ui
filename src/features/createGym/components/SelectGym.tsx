@@ -1,3 +1,5 @@
+import { Button } from '@/components/Elements';
+import { queryClient as libQueryClient } from '@/lib/react-query';
 import {
   FormControl,
   InputLabel,
@@ -5,11 +7,12 @@ import {
   Select,
   SelectChangeEvent,
 } from '@mui/material';
+import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useAllGym } from '../api/getAllGym';
-import { Button } from '@/components/Elements';
 
 export const SelectGym = () => {
+  const queryClient = useQueryClient(libQueryClient);
   const getGymQuery = useAllGym();
   const [inputValue, setInputValue] = useState<string | undefined>('');
   const [selectGymId, setSelectGymId] = useState<string | undefined>('');
@@ -33,6 +36,7 @@ export const SelectGym = () => {
   const handleButtonClick = () => {
     if (selectGymId) {
       localStorage.setItem('CurrentGymId', selectGymId);
+      queryClient.invalidateQueries();
     }
   };
   return (
