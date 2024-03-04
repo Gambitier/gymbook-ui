@@ -1,3 +1,4 @@
+import { Button } from '@/components/Elements';
 import {
   FormControl,
   InputLabel,
@@ -7,7 +8,6 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { useAllGym } from '../api/getAllGym';
-import { Button } from '@/components/Elements';
 
 export const SelectGym = () => {
   const getGymQuery = useAllGym();
@@ -33,6 +33,7 @@ export const SelectGym = () => {
   const handleButtonClick = () => {
     if (selectGymId) {
       localStorage.setItem('CurrentGymId', selectGymId);
+      window.location.reload();
     }
   };
   return (
