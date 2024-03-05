@@ -1,5 +1,6 @@
 import { GetPlanResponseDTO } from '@/features/plans';
 import { axios } from '@/lib/axios';
+import storage from '@/utils/storage';
 import { useQuery } from '@tanstack/react-query';
 
 export const getPlans = (gymId: string): Promise<GetPlanResponseDTO> => {
@@ -26,10 +27,10 @@ const planResponse: GetPlanResponseDTO = {
 export const usePlans = () => {
   console.log(planResponse);
 
-  const getGymId = localStorage.getItem('CurrentGymId');
-  const setGymId = getGymId || '';
+  const currentGymId = storage.getCurrentGymId();
+
   return useQuery({
     queryKey: ['plans'],
-    queryFn: () => getPlans(setGymId),
+    queryFn: () => getPlans(currentGymId),
   });
 };

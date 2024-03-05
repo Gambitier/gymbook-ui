@@ -104,7 +104,7 @@ export default function AppDrawer({ children }: AppDrawerProps) {
   const [open, setOpen] = React.useState(false);
   const navigation: SideNavigationItem[] = [
     { name: 'Plan', to: 'plans' },
-    { name: 'Create Gym', to: 'gym' },
+    { name: 'Gym', to: 'gym' },
   ];
 
   const handleDrawerOpen = () => {

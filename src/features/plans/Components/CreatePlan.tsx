@@ -5,6 +5,7 @@ import { Grid } from '@mui/material';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { useCreatePlan } from '../api/createPlan';
+import storage from '@/utils/storage';
 
 type CreatePlanFormValues = {
   name: string;
@@ -43,8 +44,7 @@ const CreatePlanForm = () => {
 
   const createPlanMutation = useCreatePlan();
   const onSubmit = async (data: CreatePlanFormValues) => {
-    const getGymId = localStorage.getItem('CurrentGymId');
-    const gymId = getGymId || '';
+    const gymId = storage.getCurrentGymId();
     await createPlanMutation.mutateAsync({ gymId, data });
     reset();
   };

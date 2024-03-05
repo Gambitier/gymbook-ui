@@ -1,5 +1,5 @@
 import Table from '@/components/Elements/Table/Table';
-import { Box, Button, CircularProgress, Grid, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Grid } from '@mui/material';
 import { CellContext, ColumnDef } from '@tanstack/react-table';
 import { useState } from 'react';
 import { usePlans } from '../api/getPlans';
@@ -70,10 +70,7 @@ export const PlanList = () => {
   ];
 
   const Header = (
-    <Box display="flex" justifyContent="space-between">
-      <Typography variant="h4" alignItems="center">
-        User Table
-      </Typography>
+    <Box display="flex" justifyContent="flex-end">
       <Button>Action Button</Button>
     </Box>
   );

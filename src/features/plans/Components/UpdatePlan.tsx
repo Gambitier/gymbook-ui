@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { usePlan } from '../api/getPlan';
 import { useUpdatePlan } from '../api/updatePlan';
+import storage from '@/utils/storage';
 type UpdatePlanProps = {
   planId: string;
 };
@@ -62,8 +63,7 @@ export const UpdatePlanForm = (props: UpdatePlanProps) => {
   const updateplanMutation = useUpdatePlan();
 
   const onSubmit = async (data: UpdatePlanFormValues) => {
-    const getGymId = localStorage.getItem('CurrentGymId');
-    const gymId = getGymId || '';
+    const gymId = storage.getCurrentGymId();
     await updateplanMutation.mutateAsync({ gymId, planId, data });
     reset();
   };

@@ -4,7 +4,7 @@ import { GymList } from '../components/GymList';
 
 const Gym = () => {
   return (
-    <ContentLayout title="Create Gym">
+    <ContentLayout title="Gym">
       <div>
         <CreateGym />
       </div>

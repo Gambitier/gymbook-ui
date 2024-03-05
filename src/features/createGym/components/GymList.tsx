@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@/components/Elements';
+import { Box, Button } from '@/components/Elements';
 import Table from '@/components/Elements/Table/Table';
 import { GetGymResponseDTO } from '@/features/createGym';
 import { CircularProgress } from '@mui/material';
@@ -46,10 +46,7 @@ export const GymList = () => {
     { accessorKey: 'name', header: ' Name' },
   ];
   const Header = (
-    <Box display="flex" justifyContent="space-between">
-      <Typography variant="h4" alignItems="center">
-        User Table
-      </Typography>
+    <Box display="flex" justifyContent="flex-end">
       <Button>Action Button</Button>
     </Box>
   );

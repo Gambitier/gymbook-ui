@@ -1,5 +1,6 @@
 import { UpdatePlanResponseDTO } from '@/features/plans';
 import { axios } from '@/lib/axios';
+import storage from '@/utils/storage';
 import { useQuery } from '@tanstack/react-query';
 
 export const getPlan = ({
@@ -16,11 +17,10 @@ type UsePlanOptions = {
   planId: string;
 };
 export const usePlan = ({ planId }: UsePlanOptions) => {
-  const getGymId = localStorage.getItem('CurrentGymId');
-  const setGymId = getGymId || '';
+  const currentGymId = storage.getCurrentGymId();
 
   return useQuery({
     queryKey: ['plan', planId],
-    queryFn: () => getPlan({ gymId: setGymId, planId }),
+    queryFn: () => getPlan({ gymId: currentGymId, planId }),
   });
 };
