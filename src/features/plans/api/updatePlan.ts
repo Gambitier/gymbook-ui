@@ -2,26 +2,31 @@ import { CreatePlanResponseDTO } from '@/features/plans';
 import { axios } from '@/lib/axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-type CreatePlanRequestDTO = {
+type UpdatePlanRequestDTO = {
   name: string;
   price: number;
   durationInMoths: number;
 };
 
-const createPlan = (
+const updatePlan = (
+  planId: string,
   gymId: string,
-  data: CreatePlanRequestDTO,
+  data: UpdatePlanRequestDTO,
 ): Promise<CreatePlanResponseDTO> => {
-  return axios.post(`/v1/gyms/${gymId}/plans`, data);
+  return axios.put(`/v1/gyms/${gymId}/plans/${planId}`, data);
 };
 
-export const useCreatePlan = () => {
+export const useUpdatePlan = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (input: { gymId: string; data: CreatePlanRequestDTO }) => {
-      const { gymId, data } = input;
-      return createPlan(gymId, data);
+    mutationFn: (input: {
+      planId: string;
+      gymId: string;
+      data: UpdatePlanRequestDTO;
+    }) => {
+      const { planId, gymId, data } = input;
+      return updatePlan(planId, gymId, data);
     },
     onSettled: async (_, error) => {
       if (error) {

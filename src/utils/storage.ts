@@ -14,6 +14,13 @@ const storage = {
   clearToken: () => {
     window.localStorage.removeItem(`${storagePrefix}token`);
   },
+  setCurrentGymId: (gymId: string) => {
+    localStorage.setItem('CurrentGymId', gymId);
+    window.location.reload();
+  },
+  getCurrentGymId: () => {
+    return localStorage.getItem('CurrentGymId') as string;
+  },
 };
 
 export default storage;

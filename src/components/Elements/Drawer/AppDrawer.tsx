@@ -14,10 +14,10 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import { CSSObject, Theme, styled, useTheme } from '@mui/material/styles';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { SelectGym } from '../../../features/createGym/components/SelectGym';
 
 const drawerWidth = 240;
 
@@ -102,7 +102,10 @@ type AppDrawerProps = {
 export default function AppDrawer({ children }: AppDrawerProps) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const navigation: SideNavigationItem[] = [{ name: 'Plan', to: 'plans' }];
+  const navigation: SideNavigationItem[] = [
+    { name: 'Plan', to: 'plans' },
+    { name: 'Gym', to: 'gym' },
+  ];
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -129,9 +132,7 @@ export default function AppDrawer({ children }: AppDrawerProps) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Gym Book
-          </Typography>
+          <SelectGym />
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>

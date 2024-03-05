@@ -1,5 +1,6 @@
 export * from './Box';
 export * from './Button';
+export * from './ConfirmationDialogue';
 export * from './Container';
 export * from './CssBaseline';
 export * from './Drawer';
@@ -7,5 +8,6 @@ export * from './Link';
 export * from './Modal';
 export * from './Paper';
 export * from './Stack';
+export * from './Table';
 export * from './TextField';
 export * from './Typography';

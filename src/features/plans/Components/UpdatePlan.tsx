@@ -2,18 +2,23 @@ import { Button, Stack, TextField } from '@/components/Elements';
 import { FormModal } from '@/components/Form/FormModal';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Grid } from '@mui/material';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { useCreatePlan } from '../api/createPlan';
+import { usePlan } from '../api/getPlan';
+import { useUpdatePlan } from '../api/updatePlan';
 import storage from '@/utils/storage';
+type UpdatePlanProps = {
+  planId: string;
+};
 
-type CreatePlanFormValues = {
+type UpdatePlanFormValues = {
   name: string;
   price: number;
   durationInMoths: number;
 };
 
-const schema: yup.ObjectSchema<CreatePlanFormValues> = yup.object().shape({
+const schema: yup.ObjectSchema<UpdatePlanFormValues> = yup.object().shape({
   name: yup.string().required('Name is required'),
   price: yup.number().required('Price is required'),
   durationInMoths: yup
@@ -24,7 +29,7 @@ const schema: yup.ObjectSchema<CreatePlanFormValues> = yup.object().shape({
 });
 
 const useFormWithValidation = () => {
-  const form = useForm<CreatePlanFormValues>({
+  const form = useForm<UpdatePlanFormValues>({
     defaultValues: {
       name: '',
       price: 0,
@@ -36,19 +41,32 @@ const useFormWithValidation = () => {
   return form;
 };
 
-const CreatePlanForm = () => {
+export const UpdatePlanForm = (props: UpdatePlanProps) => {
+  const { planId } = props;
   const form = useFormWithValidation();
   const { register, handleSubmit, formState, reset } = form;
   const { errors, isDirty, isValid } = formState;
-  const formId = 'create-plan';
+  const formId = 'update-plan';
 
-  const createPlanMutation = useCreatePlan();
-  const onSubmit = async (data: CreatePlanFormValues) => {
+  const planQuery = usePlan({ planId });
+
+  useEffect(() => {
+    if (planQuery.data) {
+      reset({
+        name: planQuery.data.data.name,
+        price: planQuery.data.data.price,
+        durationInMoths: planQuery.data.data.durationInMoths,
+      });
+    }
+  }, [planQuery.data, reset]);
+
+  const updateplanMutation = useUpdatePlan();
+
+  const onSubmit = async (data: UpdatePlanFormValues) => {
     const gymId = storage.getCurrentGymId();
-    await createPlanMutation.mutateAsync({ gymId, data });
+    await updateplanMutation.mutateAsync({ gymId, planId, data });
     reset();
   };
-
   const Form = (
     <form id={formId} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={2}>
@@ -92,23 +110,23 @@ const CreatePlanForm = () => {
     <Button
       type="submit"
       variant="contained"
-      disabled={!isDirty || !isValid || createPlanMutation.isPending}
+      disabled={!isDirty || !isValid}
       form={formId}
-      isLoading={createPlanMutation.isPending}
+      isLoading={updateplanMutation.isPending}
     >
-      Submit
+      Update Plan
     </Button>
   );
+  const isSuccess = updateplanMutation.isSuccess;
 
-  const isSuccess = createPlanMutation.isSuccess;
   return { SubmitButton, Form, isSuccess };
 };
 
-export const CreatePlan: React.FC = () => {
-  const { SubmitButton, Form, isSuccess } = CreatePlanForm();
+export const UpdatePlan: React.FC<{ planId: string }> = ({ planId }) => {
+  const { SubmitButton, Form, isSuccess } = UpdatePlanForm({ planId });
   const TriggerButton = (
     <Grid container justifyContent="flex-end">
-      <Button variant="contained">Add New Plan</Button>
+      <Button variant="contained">Update Plan</Button>
     </Grid>
   );
 
@@ -116,7 +134,7 @@ export const CreatePlan: React.FC = () => {
     <FormModal
       submitButton={SubmitButton}
       triggerButton={TriggerButton}
-      title="Add Plan"
+      title="Update Plan"
       isDone={isSuccess}
     >
       {Form}
